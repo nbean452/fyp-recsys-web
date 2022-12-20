@@ -13,6 +13,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "@next/bundle-analyzer": "^13.0.7",
     "@next/font": "13.0.7",
     "@types/node": "18.11.16",
@@ -20,6 +21,7 @@
     "@types/react-dom": "18.0.9",
     "antd": "^5.0.7",
     "next": "13.0.7",
+    "next-translate": "^1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "^0.31.2",
