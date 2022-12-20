@@ -2,9 +2,7 @@ import { ReactNode } from "react";
 
 import { InstagramOutlined, FacebookOutlined } from "@ant-design/icons";
 import { Col, Row, Space, Typography } from "antd";
-import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import {
   StyledContent,
@@ -22,8 +20,6 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   const { Text } = Typography;
-  const { t, lang } = useTranslation("common");
-  const router = useRouter();
 
   return (
     <>
