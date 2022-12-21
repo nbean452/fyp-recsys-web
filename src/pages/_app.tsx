@@ -4,6 +4,7 @@ import NextProgress from "next-progress";
 import type { AppProps } from "next/app";
 
 import GlobalStyle from "@components/GlobalStyle";
+import color from "@constants/color";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [showChild, setShowChild] = useState(false);
@@ -14,7 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return typeof window === "undefined" || !showChild ? null : (
     <>
-      <NextProgress color="#1677ff" options={{ showSpinner: false }} />
+      <NextProgress color={color.progress} options={{ showSpinner: false }} />
       <GlobalStyle />
       <Component {...pageProps} />
     </>
