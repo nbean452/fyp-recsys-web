@@ -1,15 +1,16 @@
-import NextImage, { StaticImageData } from "next/image";
+import NextImage from "next/image";
+import type { ImageProps } from "next/image";
 
-type ImageProps = {
-  alt: string;
-  src: string | StaticImageData;
-  priority?: boolean;
-  quality?: number;
-};
-
-const Image = ({ alt, src, priority, quality }: ImageProps): JSX.Element => (
+const Image = ({
+  alt,
+  src,
+  priority,
+  placeholder,
+  quality,
+}: ImageProps): JSX.Element => (
   <NextImage
     alt={alt}
+    placeholder={placeholder}
     priority={priority}
     quality={quality}
     sizes="(max-width: 768px) 100vw,
@@ -19,10 +20,5 @@ const Image = ({ alt, src, priority, quality }: ImageProps): JSX.Element => (
     style={{ height: "auto", width: "100%" }}
   />
 );
-
-Image.defaultProps = {
-  priority: false,
-  quality: 75,
-};
 
 export default Image;
