@@ -3,6 +3,7 @@
     "home": "Home",
     "courses": "Courses",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "search": "Search courses"
   }
 }

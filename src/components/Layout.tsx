@@ -7,8 +7,10 @@ import {
   BookOutlined,
 } from "@ant-design/icons";
 import {
+  AutoComplete,
   Button,
   Col,
+  Input,
   Menu,
   MenuProps,
   Modal,
@@ -18,6 +20,7 @@ import {
 } from "antd";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import {
   StyledContent,
@@ -37,21 +40,34 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const { Text } = Typography;
   const { t } = useTranslation("common");
 
+  const router = useRouter();
+
+  const [current, setCurrent] = useState(router.pathname);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const handleClick: MenuProps["onClick"] = (e) => setCurrent(e.key);
+  const { Search } = Input;
+
+  // placeholder
+  const options = [
+    { label: "1", value: "1" },
+    { label: "2", value: "2" },
+    { label: "3", value: "3" },
+  ];
+
   const items: MenuProps["items"] = [
     {
       icon: <HomeOutlined />,
-      key: "home",
+      key: "/",
       label: <StyledLink href="/">{t`nav.home`}</StyledLink>,
     },
     {
       icon: <BookOutlined />,
-      key: "courses",
+      key: "/courses",
       label: <StyledLink href="/courses">{t`nav.courses`}</StyledLink>,
     },
   ];
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
 
   return (
     <>
@@ -65,15 +81,47 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         <StyledHeader>
           <Row justify="space-between">
             <Col>
-              <Menu items={items} mode="horizontal" />
+              <Menu
+                items={items}
+                mode="horizontal"
+                selectedKeys={[current]}
+                triggerSubMenuAction="click"
+                onClick={handleClick}
+              />
+              <Modal
+                open={showLogin}
+                title="Login"
+                onCancel={() => setShowLogin(false)}
+              >
+                Components here...
+              </Modal>
+              <Modal
+                open={showRegister}
+                title="Register"
+                onCancel={() => setShowRegister(false)}
+              >
+                Components here...
+              </Modal>
+            </Col>
+            <Col>
+              <AutoComplete
+                options={options}
+                style={{
+                  alignItems: "center",
+                  display: "flex",
+                  height: "100%",
+                }}
+              >
+                <Search placeholder={t`nav.search`} />
+              </AutoComplete>
             </Col>
             <Col>
               <Space>
                 <LocaleSwitcher />
-                <Button type="text" onClick={() => setShowLogin(true)}>
+                <Button type="primary" onClick={() => setShowLogin(true)}>
                   {t`nav.login`}
                 </Button>
-                <Button type="text" onClick={() => setShowRegister(true)}>
+                <Button type="primary" onClick={() => setShowRegister(true)}>
                   {t`nav.register`}
                 </Button>
                 <Modal
