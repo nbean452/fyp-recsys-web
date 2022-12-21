@@ -24,8 +24,8 @@ const HomePage: NextPage = () => {
       <Title>{t`heading`}</Title>
       <Text>{t`subheading`}</Text>
       <Row gutter={[16, 16]}>
-        {new Array(5).fill(CardComponent).map((item) => (
-          <Col md={12} sm={24} xl={6}>
+        {new Array(5).fill(CardComponent).map((item, index) => (
+          <Col key={index} md={12} sm={24} xl={6}>
             {item}
           </Col>
         ))}
