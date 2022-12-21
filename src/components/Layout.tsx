@@ -7,10 +7,8 @@ import {
   BookOutlined,
 } from "@ant-design/icons";
 import {
-  AutoComplete,
   Button,
   Col,
-  Input,
   Menu,
   MenuProps,
   Modal,
@@ -47,14 +45,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const [showRegister, setShowRegister] = useState(false);
 
   const handleClick: MenuProps["onClick"] = (e) => setCurrent(e.key);
-  const { Search } = Input;
-
-  // placeholder
-  const options = [
-    { label: "1", value: "1" },
-    { label: "2", value: "2" },
-    { label: "3", value: "3" },
-  ];
 
   const items: MenuProps["items"] = [
     {
@@ -102,18 +92,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
               >
                 Components here...
               </Modal>
-            </Col>
-            <Col>
-              <AutoComplete
-                options={options}
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  height: "100%",
-                }}
-              >
-                <Search placeholder={t`nav.search`} />
-              </AutoComplete>
             </Col>
             <Col>
               <Space>

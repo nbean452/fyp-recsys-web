@@ -7,7 +7,13 @@ const nextTranslate = require("next-translate");
 
 const nextConfig = {
   images: {
-    domains: [""],
+    formats: ["image/webp"],
+    remotePatterns: [
+      {
+        hostname: "**.unsplash.com",
+        protocol: "https",
+      },
+    ],
   },
   reactStrictMode: true,
   swcMinify: true,

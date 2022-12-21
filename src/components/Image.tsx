@@ -3,13 +3,18 @@ import type { ImageProps } from "next/image";
 
 const Image = ({
   alt,
+  fill,
+  height,
   src,
   priority,
   placeholder,
   quality,
+  width,
 }: ImageProps): JSX.Element => (
   <NextImage
     alt={alt}
+    fill={fill}
+    height={height}
     placeholder={placeholder}
     priority={priority}
     quality={quality}
@@ -18,6 +23,7 @@ const Image = ({
               33vw"
     src={src}
     style={{ height: "auto", width: "100%" }}
+    width={width}
   />
 );
 
