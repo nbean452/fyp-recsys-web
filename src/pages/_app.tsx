@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import NextProgress from "next-progress";
 import type { AppProps } from "next/app";
 
 import GlobalStyle from "@components/GlobalStyle";
@@ -13,6 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return typeof window === "undefined" || !showChild ? null : (
     <>
+      <NextProgress color="#1677ff" options={{ showSpinner: false }} />
       <GlobalStyle />
       <Component {...pageProps} />
     </>

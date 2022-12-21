@@ -21,6 +21,7 @@
     "@types/react-dom": "18.0.9",
     "antd": "^5.0.7",
     "next": "13.0.7",
+    "next-progress": "^2.2.0",
     "next-translate": "^1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

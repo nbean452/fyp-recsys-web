@@ -9,7 +9,6 @@ import {
 import {
   Button,
   Col,
-  Divider,
   Menu,
   MenuProps,
   Modal,
@@ -71,7 +70,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
             <Col>
               <Space>
                 <LocaleSwitcher />
-                <Divider type="vertical" />
                 <Button type="text" onClick={() => setShowLogin(true)}>
                   {t`nav.login`}
                 </Button>
