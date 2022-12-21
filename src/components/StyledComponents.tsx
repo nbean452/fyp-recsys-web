@@ -18,7 +18,9 @@ export const StyledLayout = styled(Layout)`
 `;
 
 // no styles yet!
-export const StyledHeader = styled(Layout.Header)``;
+export const StyledHeader = styled(Layout.Header)`
+  background: white !important;
+`;
 
 // no styles yet!
 export const StyledContent = styled(Layout.Content)`

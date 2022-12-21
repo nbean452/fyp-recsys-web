@@ -1,1 +1,8 @@
-{ "common": "EN" }
+{
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "login": "Login",
+    "register": "Register"
+  }
+}

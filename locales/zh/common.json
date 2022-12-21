@@ -1,1 +1,8 @@
-{ "common": "中文" }
+{
+  "nav": {
+    "home": "指数",
+    "courses": "课程",
+    "login": "登录",
+    "register": "注册"
+  }
+}

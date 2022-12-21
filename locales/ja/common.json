@@ -1,1 +1,8 @@
-{ "common": "日本語" }
+{
+  "nav": {
+    "home": "ホーム",
+    "courses": "コース",
+    "login": "ログイン",
+    "register": "レジスタ"
+  }
+}
