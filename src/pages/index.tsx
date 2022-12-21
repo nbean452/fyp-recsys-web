@@ -2,7 +2,7 @@ import { Card, Col, Row, Typography } from "antd";
 import { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 
-import NextImage from "@components/Image";
+import Image from "@components/Image";
 import Layout from "@components/Layout";
 
 import iProtect from "../../public/img/iprotect-mobile.png";
@@ -11,7 +11,7 @@ const { Meta } = Card;
 const { Text, Title } = Typography;
 
 const CardComponent = (
-  <Card cover={<NextImage alt="iProtect" src={iProtect} />} hoverable>
+  <Card cover={<Image alt="iProtect" src={iProtect} priority />} hoverable>
     <Meta description="Made using Next.js" title="iProtect" />
   </Card>
 );
