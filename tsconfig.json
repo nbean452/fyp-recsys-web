@@ -6,7 +6,9 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@redux/*": ["src/redux/*"],
+      "@slices/*": ["src/redux/slices/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
