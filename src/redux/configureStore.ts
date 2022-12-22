@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import rootReducer from "./reducers";
 
 const persistConfig = {
+  // blacklist: ["userAgreement"],
   key: "root",
   storage,
 };
@@ -26,6 +27,4 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export default store;
-
-export { persistor };
+export default { persistor, store };
