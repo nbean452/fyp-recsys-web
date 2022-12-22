@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Utama",
+    "courses": "Kelas",
+    "login": "Masuk",
+    "register": "Daftar",
+    "search": "Cari kelas"
+  },
+  "disclaimer": {
+    "title": "Pemberitahuan",
+    "text": "Website ini masih dalam proses pengerjaan sehingga ada banyak bug di website ini!"
+  }
+}

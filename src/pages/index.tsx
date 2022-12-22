@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AutoComplete, Card, Col, Input, Row, Typography } from "antd";
 import kebabCase from "lodash/kebabCase";
@@ -74,6 +74,13 @@ const HomePage: NextPage = () => {
     { label: "2", value: "2" },
     { label: "3", value: "3" },
   ]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSearch());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout>

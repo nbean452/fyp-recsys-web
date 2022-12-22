@@ -6,11 +6,13 @@ import {
   HomeOutlined,
   BookOutlined,
   MenuOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import {
   Button,
   Col,
   Drawer,
+  Input,
   MenuProps,
   Modal,
   Row,
@@ -146,14 +148,32 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
             title="Login"
             onCancel={() => setShowLogin(false)}
           >
-            Components here...
+            <Space direction="vertical" style={{ width: "100%" }}>
+              <Text>Username</Text>
+              <Input
+                placeholder="Enter your username"
+                prefix={<UserOutlined />}
+              />
+              <Text>Password</Text>
+              <Input.Password placeholder="Enter your password" />
+            </Space>
           </Modal>
           <Modal
             open={showRegister}
             title="Register"
             onCancel={() => setShowRegister(false)}
           >
-            Components here...
+            <Space direction="vertical" style={{ width: "100%" }}>
+              <Text>Username</Text>
+              <Input
+                placeholder="Enter your username"
+                prefix={<UserOutlined />}
+              />
+              <Text>Password</Text>
+              <Input.Password placeholder="Enter your password" />
+              <Text>Confirm Password</Text>
+              <Input.Password placeholder="Enter your password again" />
+            </Space>
           </Modal>
         </StyledHeader>
 
