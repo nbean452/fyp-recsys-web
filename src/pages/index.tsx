@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
-
-import { AutoComplete, Card, Col, Input, Row, Typography } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import kebabCase from "lodash/kebabCase";
 import { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 
 import Image from "@components/Image";
 import Layout from "@components/Layout";
+import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
-import { clearSearch, setSearch } from "@redux/slices/searchSlice";
-import { useDispatch, useSelector } from "@utils/hooks";
 
 const HomePage: NextPage = () => {
   const { t } = useTranslation("home");
-  const tCommon = useTranslation("common").t;
-
-  const { search } = useSelector((state) => state.courseSearch);
-  const dispatch = useDispatch();
-  const { Search } = Input;
 
   const { Meta } = Card;
   const { Text, Title } = Typography;
@@ -68,51 +60,12 @@ const HomePage: NextPage = () => {
     },
   ];
 
-  // placeholder
-  const [options, setOptions] = useState([
-    { label: "1", value: "1" },
-    { label: "2", value: "2" },
-    { label: "3", value: "3" },
-  ]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearSearch());
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Layout>
-      <AutoComplete
-        options={options}
-        style={{
-          alignItems: "center",
-          display: "flex",
-          height: "100%",
-          width: "200px",
-        }}
-        value={search}
-        onChange={(value) => {
-          dispatch(setSearch(value));
-          setOptions([
-            { label: `${value}@mail.com`, value: `${value}@mail.com` },
-            { label: `${value}@yahoo.com`, value: `${value}@yahoo.com` },
-            { label: `${value}@gmail.com`, value: `${value}@gmail.com` },
-          ]);
-        }}
-        onClear={() => dispatch(clearSearch())}
-      >
-        <Search
-          placeholder={tCommon`nav.search`}
-          style={{
-            height: "100%",
-            width: "200px",
-          }}
-        />
-      </AutoComplete>
       <Title>{t`heading`}</Title>
       <Text>{t`subheading`}</Text>
+
+      <SearchCourse />
 
       <Row gutter={[16, 16]}>
         {courses.map((item, index) => (
