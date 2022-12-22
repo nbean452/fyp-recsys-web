@@ -1,5 +1,5 @@
-import NextImage from "next/image";
 import type { ImageProps } from "next/image";
+import NextImage from "next/image";
 
 const Image = ({
   alt,
@@ -10,11 +10,13 @@ const Image = ({
   placeholder,
   quality,
   width,
+  loader,
 }: ImageProps): JSX.Element => (
   <NextImage
     alt={alt}
     fill={fill}
     height={height}
+    loader={loader}
     placeholder={placeholder}
     priority={priority}
     quality={quality}
