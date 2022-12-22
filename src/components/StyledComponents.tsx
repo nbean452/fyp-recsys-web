@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import { Layout, Menu } from "antd";
 import NextLink from "next/link";
 import styled from "styled-components";
 
@@ -23,11 +23,34 @@ export const StyledLayout = styled(Layout)`
 // no styles yet!
 export const StyledHeader = styled(Layout.Header)`
   background: ${color.header} !important;
+  padding-inline: 48px !important;
+
+  @media screen and (max-width: 600px) {
+    padding-inline: 16px !important;
+  }
 `;
 
 // no styles yet!
 export const StyledContent = styled(Layout.Content)`
-  padding: 50px;
+  padding: 48px;
+
+  @media screen and (max-width: 600px) {
+    padding: 16px;
+  }
 `;
 
 export const StyledFooter = styled(Layout.Footer)``;
+
+export const StyledMenu = styled(Menu)`
+  display: flex;
+  gap: 8px;
+  min-width: 100%;
+
+  &::before {
+    all: unset;
+  }
+  & > li::after {
+    inset-inline: 0 !important;
+    border-radius: 0 !important;
+  }
+`;

@@ -5,11 +5,12 @@ import {
   FacebookOutlined,
   HomeOutlined,
   BookOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import {
   Button,
   Col,
-  Menu,
+  Drawer,
   MenuProps,
   Modal,
   Row,
@@ -26,6 +27,7 @@ import {
   StyledHeader,
   StyledLayout,
   StyledLink,
+  StyledMenu,
 } from "@components/StyledComponents";
 
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -43,10 +45,11 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const [current, setCurrent] = useState(router.pathname);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const handleClick: MenuProps["onClick"] = (e) => setCurrent(e.key);
 
-  const items: MenuProps["items"] = [
+  const menuItems: MenuProps["items"] = [
     {
       icon: <HomeOutlined />,
       key: "/",
@@ -69,60 +72,95 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       </Head>
       <StyledLayout>
         <StyledHeader>
-          <Row justify="space-between">
-            <Col>
-              <Menu
-                items={items}
+          <Row gutter={[16, 16]} justify="space-between">
+            <Col sm={12} xs={0}>
+              <StyledMenu
+                items={menuItems}
                 mode="horizontal"
                 selectedKeys={[current]}
                 triggerSubMenuAction="click"
                 onClick={handleClick}
               />
-              <Modal
-                open={showLogin}
-                title="Login"
-                onCancel={() => setShowLogin(false)}
-              >
-                Components here...
-              </Modal>
-              <Modal
-                open={showRegister}
-                title="Register"
-                onCancel={() => setShowRegister(false)}
-              >
-                Components here...
-              </Modal>
             </Col>
-            <Col>
-              <Space>
-                <LocaleSwitcher />
+            <Col sm={12} xs={0}>
+              <Space style={{ float: "right", justifyContent: "right" }}>
                 <Button type="primary" onClick={() => setShowLogin(true)}>
                   {t`nav.login`}
                 </Button>
                 <Button type="primary" onClick={() => setShowRegister(true)}>
                   {t`nav.register`}
                 </Button>
-                <Modal
-                  open={showLogin}
-                  title="Login"
-                  onCancel={() => setShowLogin(false)}
-                >
-                  Components here...
-                </Modal>
-                <Modal
-                  open={showRegister}
-                  title="Register"
-                  onCancel={() => setShowRegister(false)}
-                >
-                  Components here...
-                </Modal>
+                <LocaleSwitcher />
               </Space>
             </Col>
+            <Col sm={0} xs={18}>
+              <StyledLink href="/">
+                <Space>
+                  <HomeOutlined />
+                  {t`nav.home`}
+                </Space>
+              </StyledLink>
+            </Col>
+            <Col sm={0} xs={6}>
+              <Space style={{ float: "right", justifyContent: "right" }}>
+                <Button
+                  icon={<MenuOutlined />}
+                  type="primary"
+                  onClick={() => setShowDrawer(true)}
+                />
+              </Space>
+              <Drawer
+                open={showDrawer}
+                placement="right"
+                title="Basic Drawer"
+                width={250}
+                onClose={() => setShowDrawer(false)}
+              >
+                <Space direction="vertical">
+                  <StyledLink href="/courses">{t`nav.courses`}</StyledLink>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      setShowDrawer(false);
+                      setShowLogin(true);
+                    }}
+                  >
+                    {t`nav.login`}
+                  </Button>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      setShowDrawer(false);
+                      setShowRegister(true);
+                    }}
+                  >
+                    {t`nav.register`}
+                  </Button>
+                  <LocaleSwitcher />
+                </Space>
+              </Drawer>
+            </Col>
           </Row>
+          <Modal
+            open={showLogin}
+            title="Login"
+            onCancel={() => setShowLogin(false)}
+          >
+            Components here...
+          </Modal>
+          <Modal
+            open={showRegister}
+            title="Register"
+            onCancel={() => setShowRegister(false)}
+          >
+            Components here...
+          </Modal>
         </StyledHeader>
+
         <StyledContent>
           <Space direction="vertical">{children}</Space>
         </StyledContent>
+
         <StyledFooter>
           <Row justify="space-between">
             <Col>
