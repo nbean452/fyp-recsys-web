@@ -5,12 +5,15 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
+import Disclaimer from "@components/Disclaimer";
 import GlobalStyle from "@components/GlobalStyle";
 import color from "@constants/color";
-import store, { persistor } from "src/redux/store";
+import configureStore from "@redux/configureStore";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [showChild, setShowChild] = useState(false);
+
+  const { store, persistor } = configureStore;
 
   useEffect(() => {
     setShowChild(true);
@@ -18,10 +21,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return typeof window === "undefined" || !showChild ? null : (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <NextProgress color={color.progress} options={{ showSpinner: false }} />
         <GlobalStyle />
         <Component {...pageProps} />
+        <Disclaimer />
       </PersistGate>
     </Provider>
   );

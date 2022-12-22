@@ -5,5 +5,9 @@
     "login": "Login",
     "register": "Register",
     "search": "Search courses"
+  },
+  "disclaimer": {
+    "title": "Disclaimer",
+    "text": "This website is still under progress! There will be bugs!"
   }
 }

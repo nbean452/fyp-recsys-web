@@ -5,5 +5,9 @@
     "login": "登录",
     "register": "注册",
     "search": "搜索课程"
+  },
+  "disclaimer": {
+    "title": "免责声明",
+    "text": "本网站仍在进展中! 会有一些错误!"
   }
 }
