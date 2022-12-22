@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 import { AutoComplete, Card, Col, Input, Row, Typography } from "antd";
-import isMobile from "is-mobile";
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 import { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 
@@ -30,42 +29,42 @@ const HomePage: NextPage = () => {
         code: "CS 115",
         name: "Introduction to Computer Science 1",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?city,night",
+      imageURL: "https://source.unsplash.com/random/640x360/?city,night",
     },
     {
       course: {
         code: "MATH 135",
         name: "Algebra for Honours Mathematics",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?city",
+      imageURL: "https://source.unsplash.com/random/640x360/?city",
     },
     {
       course: {
         code: "MATH 137",
         name: "Calculus 1 for Honours Mathematics",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?night",
+      imageURL: "https://source.unsplash.com/random/640x360/?night",
     },
     {
       course: {
         code: "CS 135",
         name: "Designing Functional Programs",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?forest",
+      imageURL: "https://source.unsplash.com/random/640x360/?forest",
     },
     {
       course: {
         code: "STAT 230",
         name: "Probability",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?fruit",
+      imageURL: "https://source.unsplash.com/random/640x360/?river",
     },
     {
       course: {
         code: "CS 240",
         name: "Data Structures and Data Management",
       },
-      imageURL: "https://source.unsplash.com/random/1440x700/?canyon",
+      imageURL: "https://source.unsplash.com/random/640x360/?canyon",
     },
   ];
 
@@ -84,12 +83,11 @@ const HomePage: NextPage = () => {
           alignItems: "center",
           display: "flex",
           height: "100%",
-          width: isMobile() ? "100%" : "500px",
+          width: "200px",
         }}
         value={search}
         onChange={(value) => {
           dispatch(setSearch(value));
-
           setOptions([
             { label: `${value}@mail.com`, value: `${value}@mail.com` },
             { label: `${value}@yahoo.com`, value: `${value}@yahoo.com` },
@@ -102,7 +100,7 @@ const HomePage: NextPage = () => {
           placeholder={tCommon`nav.search`}
           style={{
             height: "100%",
-            width: isMobile() ? "100%" : "500px",
+            width: "200px",
           }}
         />
       </AutoComplete>
@@ -111,26 +109,29 @@ const HomePage: NextPage = () => {
 
       <Row gutter={[16, 16]}>
         {courses.map((item, index) => (
-          <Col key={index} lg={8} md={12} sm={24} xl={6}>
-            <StyledLink href={`/course/${kebabCase(item.course.code)}`}>
-              <Card
-                cover={
+          <Col key={index} lg={8} md={12} sm={24} xl={6} xs={24}>
+            <Card
+              cover={
+                <StyledLink href={`/course/${kebabCase(item.course.code)}`}>
                   <Image
                     alt={item.course.name}
-                    height={100}
+                    height={360}
                     src={item.imageURL}
-                    width={200}
+                    width={640}
                     priority
                   />
+                </StyledLink>
+              }
+            >
+              <Meta
+                description={<Text ellipsis>{item.course.name}</Text>}
+                title={
+                  <StyledLink href={`/course/${kebabCase(item.course.code)}`}>
+                    {item.course.code}
+                  </StyledLink>
                 }
-                hoverable
-              >
-                <Meta
-                  description={<Text ellipsis>{item.course.name}</Text>}
-                  title={item.course.code}
-                />
-              </Card>
-            </StyledLink>
+              />
+            </Card>
           </Col>
         ))}
       </Row>
