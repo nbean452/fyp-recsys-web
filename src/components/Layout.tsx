@@ -7,6 +7,7 @@ import {
   BookOutlined,
   MenuOutlined,
   UserOutlined,
+  PaperClipOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -63,7 +64,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       label: <StyledLink href="/courses">{t`nav.courses`}</StyledLink>,
     },
     {
-      icon: <BookOutlined />,
+      icon: <PaperClipOutlined />,
       key: "/docs",
       label: <StyledLink href="/docs">{t`nav.docs`}</StyledLink>,
     },
