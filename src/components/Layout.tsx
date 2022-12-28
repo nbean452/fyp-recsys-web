@@ -80,7 +80,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       <StyledLayout>
         <StyledHeader>
           <Row gutter={[16, 16]} justify="space-between">
-            <Col sm={12} xs={0}>
+            <Col md={12} sm={0} xs={0}>
               <StyledMenu
                 items={menuItems}
                 mode="horizontal"
@@ -89,7 +89,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                 onClick={handleClick}
               />
             </Col>
-            <Col sm={12} xs={0}>
+            <Col md={12} sm={0} xs={0}>
               <Space style={{ float: "right", justifyContent: "right" }}>
                 <Button type="primary" onClick={() => setShowLogin(true)}>
                   {t`nav.login`}
@@ -100,7 +100,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                 <LocaleSwitcher />
               </Space>
             </Col>
-            <Col sm={0} xs={18}>
+            <Col md={0} sm={18} xs={18}>
               <StyledLink href="/">
                 <Space>
                   <HomeOutlined />
@@ -108,7 +108,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                 </Space>
               </StyledLink>
             </Col>
-            <Col sm={0} xs={6}>
+            <Col md={0} sm={6} xs={6}>
               <Space style={{ float: "right", justifyContent: "right" }}>
                 <Button
                   icon={<MenuOutlined />}
