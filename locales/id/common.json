@@ -2,6 +2,7 @@
   "nav": {
     "home": "Utama",
     "courses": "Kelas",
+    "docs": "Dokumen",
     "login": "Masuk",
     "register": "Daftar",
     "search": "Cari kelas"

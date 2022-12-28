@@ -2,6 +2,7 @@
   "nav": {
     "home": "ホーム",
     "courses": "コース",
+    "docs": "資料",
     "login": "ログイン",
     "register": "レジスタ",
     "search": "コースを探す"

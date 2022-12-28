@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "courses": "Courses",
+    "docs": "Docs",
     "login": "Login",
     "register": "Register",
     "search": "Search courses"

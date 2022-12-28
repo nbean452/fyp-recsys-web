@@ -62,6 +62,11 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       key: "/courses",
       label: <StyledLink href="/courses">{t`nav.courses`}</StyledLink>,
     },
+    {
+      icon: <BookOutlined />,
+      key: "/docs",
+      label: <StyledLink href="/docs">{t`nav.docs`}</StyledLink>,
+    },
   ];
 
   return (
