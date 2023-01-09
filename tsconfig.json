@@ -6,6 +6,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
+      "@client/*": ["src/client/*"],
       "@utils/*": ["src/utils/*"],
       "@redux/*": ["src/redux/*"],
       "@slices/*": ["src/redux/slices/*"]
