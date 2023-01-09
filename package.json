@@ -30,12 +30,14 @@
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "sharp": "^0.31.2",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "superagent": "^8.0.6"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
+    "@types/superagent": "^4.1.16",
     "eslint": "8.30.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "13.0.7",
