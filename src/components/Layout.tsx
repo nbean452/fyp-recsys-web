@@ -184,7 +184,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         </StyledHeader>
 
         <StyledContent>
-          <Space direction="vertical">{children}</Space>
+          <Space direction="vertical" style={{ width: "100%" }}>
+            {children}
+          </Space>
         </StyledContent>
 
         <StyledFooter>
