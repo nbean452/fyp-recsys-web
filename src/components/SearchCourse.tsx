@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 import { AutoComplete, Input } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
-import { clearSearch, setSearch } from "@redux/slices/searchSlice";
+import { LabelValue } from "@constants/types";
+import { clearSearch, setSearch } from "@redux/slices/courseSlice";
 import { useDispatch, useSelector } from "@utils/hooks";
 
 const SearchCourse = () => {
   const dispatch = useDispatch();
-  const { search } = useSelector((state) => state.courseSearch);
+  const { search } = useSelector((state) => state.course);
   const { t } = useTranslation("common");
   const { Search } = Input;
 
-  // placeholder
-  const [options, setOptions] = useState<{ label: string; value: string }[]>(
-    [],
-  );
+  const [options, setOptions] = useState<LabelValue[]>([]);
 
   useEffect(() => {
     return () => {
