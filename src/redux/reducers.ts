@@ -1,8 +1,10 @@
-import searchSliceReducer from "./slices/searchSlice";
+import authReducer from "./slices/authSlice";
+import courseReducer from "./slices/courseSlice";
 import userAgreementReducer from "./slices/userAgreementSlice";
 
 const reducers = {
-  courseSearch: searchSliceReducer,
+  auth: authReducer,
+  course: courseReducer,
   userAgreement: userAgreementReducer,
 };
 
