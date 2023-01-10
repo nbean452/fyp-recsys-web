@@ -16,7 +16,7 @@ const initialState: InitialState = {
   totalCourses: 0,
 };
 
-export const searchSlice = createSlice({
+export const courseSlice = createSlice({
   initialState,
   name: "course",
   reducers: {
@@ -37,6 +37,6 @@ export const searchSlice = createSlice({
 });
 
 export const { clearCourse, clearSearch, setCourses, setSearch } =
-  searchSlice.actions;
+  courseSlice.actions;
 
-export default searchSlice.reducer;
+export default courseSlice.reducer;
