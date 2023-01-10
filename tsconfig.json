@@ -9,7 +9,8 @@
       "@client/*": ["src/client/*"],
       "@utils/*": ["src/utils/*"],
       "@redux/*": ["src/redux/*"],
-      "@slices/*": ["src/redux/slices/*"]
+      "@slices/*": ["src/redux/slices/*"],
+      "@features/*": ["src/features/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
