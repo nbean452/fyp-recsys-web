@@ -4,7 +4,7 @@ import { setCredentials, logOut } from "@features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl:
-    process.env.REACT_APP_ENVIRONMENT === "PRODUCTION"
+    process.env.NODE_ENV === "production"
       ? "https://capstone-api.nbenedictcodes.com"
       : "http://localhost:9000",
   credentials: "include",
