@@ -6,20 +6,9 @@ import {
   HomeOutlined,
   BookOutlined,
   MenuOutlined,
-  UserOutlined,
   PaperClipOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Col,
-  Drawer,
-  Input,
-  MenuProps,
-  Modal,
-  Row,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Col, Drawer, MenuProps, Row, Space, Typography } from "antd";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -34,6 +23,7 @@ import {
 } from "@components/StyledComponents";
 
 import LocaleSwitcher from "./LocaleSwitcher";
+import LoginModal from "./LoginModal";
 
 type LayoutProps = {
   children: ReactNode;
@@ -47,7 +37,6 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
 
   const [current, setCurrent] = useState(router.pathname);
   const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
   const [showDrawer, setShowDrawer] = useState(false);
 
   const handleClick: MenuProps["onClick"] = (e) => setCurrent(e.key);
@@ -95,8 +84,8 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                 <Button type="primary" onClick={() => setShowLogin(true)}>
                   {t`nav.login`}
                 </Button>
-                <Button type="primary" onClick={() => setShowRegister(true)}>
-                  {t`nav.register`}
+                <Button type="primary">
+                  <StyledLink href="/register">{t`nav.register`}</StyledLink>
                 </Button>
                 <LocaleSwitcher />
               </Space>
@@ -120,7 +109,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
               <Drawer
                 open={showDrawer}
                 placement="right"
-                title="Basic Drawer"
+                title={t`nav.drawer`}
                 width={250}
                 onClose={() => setShowDrawer(false)}
               >
@@ -139,48 +128,20 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                     type="primary"
                     onClick={() => {
                       setShowDrawer(false);
-                      setShowRegister(true);
                     }}
                   >
-                    {t`nav.register`}
+                    <StyledLink href="/register">{t`nav.register`}</StyledLink>
                   </Button>
                   <LocaleSwitcher />
                 </Space>
               </Drawer>
             </Col>
           </Row>
-          <Modal
-            open={showLogin}
-            title="Login"
+          <LoginModal
+            show={showLogin}
             onCancel={() => setShowLogin(false)}
-          >
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <Text>Username</Text>
-              <Input
-                placeholder="Enter your username"
-                prefix={<UserOutlined />}
-              />
-              <Text>Password</Text>
-              <Input.Password placeholder="Enter your password" />
-            </Space>
-          </Modal>
-          <Modal
-            open={showRegister}
-            title="Register"
-            onCancel={() => setShowRegister(false)}
-          >
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <Text>Username</Text>
-              <Input
-                placeholder="Enter your username"
-                prefix={<UserOutlined />}
-              />
-              <Text>Password</Text>
-              <Input.Password placeholder="Enter your password" />
-              <Text>Confirm Password</Text>
-              <Input.Password placeholder="Enter your password again" />
-            </Space>
-          </Modal>
+            onOk={() => setShowLogin(false)}
+          />
         </StyledHeader>
 
         <StyledContent>
