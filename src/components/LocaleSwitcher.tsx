@@ -4,7 +4,8 @@ import { Dropdown, Space, Button } from "antd";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 
-import locales, { LocaleType } from "@utils/locales";
+import type { LabelValue } from "@constants/types";
+import locales from "@utils/locales";
 
 import { StyledLink } from "./StyledComponents";
 
@@ -12,7 +13,7 @@ const LocaleSwitcher = () => {
   const { lang } = useTranslation("common");
   const router = useRouter();
 
-  const items: MenuProps["items"] = locales.map((locale: LocaleType) =>
+  const items: MenuProps["items"] = locales.map((locale: LabelValue) =>
     locale.value === lang || locale.value === "default"
       ? null
       : {
