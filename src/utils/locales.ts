@@ -7,7 +7,4 @@ const locales = i18nConfig.locales.map((locale, index) => ({
   value: locale,
 }));
 
-type LocaleType = { label: string; value: string };
-
 export default locales;
-export type { LocaleType };
