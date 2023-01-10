@@ -5,7 +5,8 @@
     "docs": "Dokumen",
     "login": "Masuk",
     "register": "Daftar",
-    "search": "Cari kelas"
+    "search": "Cari kelas",
+    "drawer": "Panel Navigasi"
   },
   "disclaimer": {
     "title": "Pemberitahuan",

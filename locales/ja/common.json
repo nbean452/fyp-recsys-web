@@ -5,7 +5,8 @@
     "docs": "資料",
     "login": "ログイン",
     "register": "レジスタ",
-    "search": "コースを探す"
+    "search": "コースを探す",
+    "drawer": "ナビゲーションドロワー"
   },
   "disclaimer": {
     "title": "免責事項",

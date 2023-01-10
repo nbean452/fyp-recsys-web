@@ -5,7 +5,8 @@
     "docs": "Docs",
     "login": "Login",
     "register": "Register",
-    "search": "Search courses"
+    "search": "Search courses",
+    "drawer": "Navigation Drawer"
   },
   "disclaimer": {
     "title": "Disclaimer",

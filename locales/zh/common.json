@@ -5,7 +5,8 @@
     "docs": "文件",
     "login": "登录",
     "register": "注册",
-    "search": "搜索课程"
+    "search": "搜索课程",
+    "drawer": "导航抽屉"
   },
   "disclaimer": {
     "title": "免责声明",
