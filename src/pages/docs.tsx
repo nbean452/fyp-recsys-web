@@ -7,7 +7,8 @@ const DocsPage: NextPage = () => (
   <Layout>
     <Link href="/docs/project_outline.pdf">Project Outline</Link>
     <Link href="/docs/interim_report.pdf">Interim Report</Link>
-    {/* <Link href="/docs/project_outline.pdf">Final Report</Link> */}
+    {/* //TODO: Add final report when available */}
+    {/* <Link href="/docs/final_report.pdf">Final Report</Link> */}
   </Layout>
 );
 

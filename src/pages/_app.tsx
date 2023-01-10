@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import Disclaimer from "@components/Disclaimer";
 import GlobalStyle from "@components/GlobalStyle";
 import color from "@constants/color";
-import configureStore from "src/app/configureStore";
+import configureStore from "@features/configureStore";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [showChild, setShowChild] = useState(false);

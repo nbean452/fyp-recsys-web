@@ -8,8 +8,6 @@
       "@constants/*": ["src/constants/*"],
       "@client/*": ["src/client/*"],
       "@utils/*": ["src/utils/*"],
-      "@redux/*": ["src/redux/*"],
-      "@slices/*": ["src/redux/slices/*"],
       "@features/*": ["src/features/*"]
     },
     "allowJs": true,

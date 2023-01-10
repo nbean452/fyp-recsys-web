@@ -3,7 +3,7 @@ import { useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Modal, Typography, Input, Form, Button } from "antd";
 
-import { useLoginMutation } from "@features/auth/authApiSlice";
+import { useLoginMutation } from "@features/auth/authApi";
 import { setCredentials } from "@features/auth/authSlice";
 import { useDispatch } from "@utils/hooks";
 

@@ -2,8 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistCombineReducers, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import apiSlice from "./api/apiSlice";
-import rootReducer from "./reducers";
+import apiSlice from "@features/apiSlice";
+import rootReducer from "@features/reducers";
 
 const persistConfig = {
   // blacklist: ["userAgreement"],
