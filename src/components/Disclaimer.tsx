@@ -1,7 +1,7 @@
 import { Button, Modal, Typography } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
-import { setUserAgreement } from "@redux/slices/userAgreementSlice";
+import { setUserAgreement } from "@features/userAgreement/userAgreementSlice";
 import { useDispatch, useSelector } from "@utils/hooks";
 
 const Disclaimer = () => {

@@ -4,7 +4,6 @@ const initialState = {
   email: "",
   firstName: "",
   id: null,
-  isLoading: false,
   lastName: "",
   token: {
     access: "",
@@ -20,10 +19,7 @@ export const authSlice = createSlice({
     logOut: () => initialState,
     setCredentials: (state, action) => ({
       ...state,
-      ...action,
-      //  const { username, token } = action.payload;
-      //   state.token = token;
-      //   state.username = username;
+      ...action.payload,
     }),
   },
 });

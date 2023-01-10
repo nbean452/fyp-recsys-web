@@ -4,7 +4,7 @@ import { AutoComplete, Input } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
 import { LabelValue } from "@constants/types";
-import { clearSearch, setSearch } from "@redux/slices/courseSlice";
+import { clearSearch, setSearch } from "@features/course/courseSlice";
 import { useDispatch, useSelector } from "@utils/hooks";
 
 const SearchCourse = () => {

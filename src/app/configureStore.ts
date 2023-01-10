@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistCombineReducers, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import apiSlice from "./api/apiSlice";
 import rootReducer from "./reducers";
 
 const persistConfig = {
@@ -13,10 +14,11 @@ const persistConfig = {
 const persistedReducer = persistCombineReducers(persistConfig, rootReducer);
 
 const store = configureStore({
+  devTools: process.env.REACT_APP_ENVIRONMENT !== "PRODUCTION",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }),
+    }).concat(apiSlice.middleware),
   reducer: persistedReducer,
 });
 

@@ -23,7 +23,15 @@ export const searchSlice = createSlice({
   initialState,
   name: "course",
   reducers: {
-    clearSearch: () => initialState,
+    clearCourse: () => initialState,
+    clearSearch: (state) => ({
+      ...state,
+      search: initialState.search,
+    }),
+    setCourses: (state, action) => ({
+      ...state,
+      courses: action.payload,
+    }),
     setSearch: (state, action) => ({
       ...state,
       search: action.payload,
@@ -31,6 +39,7 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { clearSearch, setSearch } = searchSlice.actions;
+export const { clearCourse, clearSearch, setCourses, setSearch } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

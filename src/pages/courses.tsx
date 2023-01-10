@@ -1,42 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Typography, Row, Col, Card } from "antd";
 import { NextPage } from "next";
-import superagent from "superagent";
 
 import Layout from "@components/Layout";
 import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
-import type { CourseWithRating } from "@constants/types";
+import {
+  clearCourse,
+  setCourses as reduxSetCourses,
+} from "@features/course/courseSlice";
+import { useDispatch, useSelector } from "@utils/hooks";
+import request from "@utils/request";
 
 const CoursesPage: NextPage = () => {
   const { Text } = Typography;
   const { Meta } = Card;
 
-  const [courses, setCourses] = useState<Array<CourseWithRating>>([]);
+  const dispatch = useDispatch();
 
-  // superagent
-  //   .post("/api/pet")
-  //   .send({ name: "Manny", species: "cat" }) // sends a JSON post body
-  //   .set("X-API-Key", "foobar")
-  //   .set("accept", "json")
-  //   .end((err, res) => {
-  //     // Calling the end function will send the request
-  //   });
+  const { courses, isLoading } = useSelector((state) => state.course);
 
   useEffect(() => {
-    // fetch("http://localhost:9000/courses")
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((json: Array<Course>) => {
-    //     setCourses(json);
-    //   });
-    superagent.get("http://localhost:9000/courses").end((err, res) => {
-      console.log("res.body:", res.body.results);
-      setCourses(res.body.results);
-    });
-  }, []);
+    const handleFinish = (res: any) =>
+      dispatch(reduxSetCourses(res.body.results));
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjczMzQyNjEwLCJpYXQiOjE2NzMzMzk2MTAsImp0aSI6IjcwMWI2ZDAyMTQzMDQwZTRiOGU1N2JiNDhjYjQ0ZGE1IiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJuaWNiMTEyIiwiaXNfc3RhZmYiOnRydWV9.1IHVRNk1Z8obQcwiH43Q3cAXxWa4_Mdgk4G7h5KbuMQ";
+
+    request("get", "courses/", token, handleFinish);
+    return () => {
+      dispatch(clearCourse());
+    };
+  }, [dispatch]);
   return (
     <Layout>
       <Text>Courses</Text>
@@ -44,20 +39,21 @@ const CoursesPage: NextPage = () => {
       <SearchCourse />
 
       <Row gutter={[16, 16]}>
-        {courses.map((item, index) => (
-          <Col key={index} lg={8} md={12} sm={24} xl={6} xs={24}>
-            <Card>
-              <Meta
-                description={<Text ellipsis>{item.name}</Text>}
-                title={
-                  <StyledLink href={`/course/${item.code}`}>
-                    {item.code}
-                  </StyledLink>
-                }
-              />
-            </Card>
-          </Col>
-        ))}
+        {isLoading &&
+          courses.map((item, index) => (
+            <Col key={index} lg={8} md={12} sm={24} xl={6} xs={24}>
+              <Card>
+                <Meta
+                  description={<Text ellipsis>{item.name}</Text>}
+                  title={
+                    <StyledLink href={`/course/${item.code}`}>
+                      {item.code}
+                    </StyledLink>
+                  }
+                />
+              </Card>
+            </Col>
+          ))}
       </Row>
     </Layout>
   );
