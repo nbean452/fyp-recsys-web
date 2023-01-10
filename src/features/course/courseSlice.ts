@@ -1,20 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { CourseWithRating, BaseInitialState } from "@constants/types";
+import { CourseWithRating } from "@constants/types";
 
-interface InitialState extends BaseInitialState {
+interface InitialState {
   course: CourseWithRating | {};
   courses: CourseWithRating[];
+  search: string;
   totalCourses: number;
 }
 
 const initialState: InitialState = {
   course: {},
   courses: [],
-  isActionLoading: false,
-  isActionSuccess: false,
-  isError: false,
-  isLoading: false,
   search: "",
   totalCourses: 0,
 };
@@ -30,7 +27,7 @@ export const searchSlice = createSlice({
     }),
     setCourses: (state, action) => ({
       ...state,
-      courses: action.payload,
+      ...action.payload,
     }),
     setSearch: (state, action) => ({
       ...state,

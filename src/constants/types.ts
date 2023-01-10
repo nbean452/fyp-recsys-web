@@ -33,14 +33,6 @@ export interface CourseWithRating extends BaseCourse {
   ratings: Omit<BaseRating, "course">[];
 }
 
-export interface BaseInitialState {
-  isLoading: boolean;
-  search: string;
-  isActionLoading: boolean;
-  isActionSuccess: boolean;
-  isError: boolean;
-}
-
 export interface LabelValue {
   label: string;
   value: string;

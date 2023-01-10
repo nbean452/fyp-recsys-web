@@ -6,8 +6,8 @@ const initialState = {
   id: null,
   lastName: "",
   token: {
-    access: "",
-    refresh: "",
+    access: null,
+    refresh: null,
   },
   username: "",
 };

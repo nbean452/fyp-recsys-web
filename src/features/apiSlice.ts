@@ -9,9 +9,10 @@ const baseQuery = fetchBaseQuery({
       : "http://localhost:9000",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const { token } = (getState() as any).auth;
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
+    const { access } = (getState() as any).auth.token;
+    if (access) {
+      headers.set("Authorization", `Bearer ${access}`);
+      headers.set("Content-type", "application/json; charset=UTF-8");
     }
     return headers;
   },
@@ -20,15 +21,23 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 403) {
+  if (result?.error?.status === 401) {
     // console.log("sending refresh token");
     // send refresh token to get new access token
-    const refreshResult = await baseQuery("/auth/refresh", api, extraOptions);
-    // console.log("refreshResult:", refreshResult);
+    const refreshResult = await baseQuery(
+      {
+        body: {
+          refresh: api.getState().auth.token.refresh,
+        },
+        method: "POST",
+        url: "/auth/refresh/",
+      },
+      api,
+      extraOptions,
+    );
     if (refreshResult?.data) {
-      const { user } = api.getState().auth;
       // store the new token
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      api.dispatch(setCredentials({ token: { ...refreshResult.data } }));
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
@@ -41,7 +50,8 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
 const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   // eslint-disable-next-line no-unused-vars
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
+  keepUnusedDataFor: 0,
 });
 
 export default apiSlice;
