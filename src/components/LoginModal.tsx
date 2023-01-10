@@ -39,7 +39,6 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
     const { username, password } = values;
     try {
       const res = await login({ password, username }).unwrap();
-      console.log("res:", res);
       dispatch(
         setCredentials({
           token: {
