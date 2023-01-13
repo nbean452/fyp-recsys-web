@@ -1,3 +1,4 @@
+import { Pagination, Filter } from "@constants/types";
 import apiSlice from "@features/apiSlice";
 
 export const ratingApi = apiSlice.injectEndpoints({
@@ -8,8 +9,8 @@ export const ratingApi = apiSlice.injectEndpoints({
       }),
     }),
     getRatings: builder.query({
-      query: () => ({
-        url: "/ratings/",
+      query: ({ limit, offset }: Pagination & Filter) => ({
+        url: `/ratings/?limit=${limit}&offset=${offset}`,
       }),
     }),
   }),

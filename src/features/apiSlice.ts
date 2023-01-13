@@ -5,8 +5,8 @@ import { setCredentials, logOut } from "@features/auth/authSlice";
 const baseQuery = fetchBaseQuery({
   baseUrl:
     process.env.NODE_ENV === "production"
-      ? "https://capstone-api.nbenedictcodes.com"
-      : "http://localhost:9000",
+      ? process.env.NEXT_PUBLIC_PROD_URL
+      : process.env.NEXT_PUBLIC_DEV_URL,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const { access } = (getState() as any).auth.token;
@@ -22,7 +22,6 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
-    // console.log("sending refresh token");
     // send refresh token to get new access token
     const refreshResult = await baseQuery(
       {
@@ -49,9 +48,9 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
 
 const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  // eslint-disable-next-line no-unused-vars
   endpoints: () => ({}),
-  keepUnusedDataFor: 0,
+  keepUnusedDataFor: 60,
+  tagTypes: ["Auth", "Course", "Rating"],
 });
 
 export default apiSlice;

@@ -1,12 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistCombineReducers, persistStore } from "redux-persist";
+import {
+  persistCombineReducers,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import apiSlice from "@features/apiSlice";
 import rootReducer from "@features/reducers";
 
 const persistConfig = {
-  // blacklist: ["userAgreement"],
+  blacklist: [apiSlice.reducerPath],
   key: "root",
   storage,
 };
@@ -17,7 +26,9 @@ const store = configureStore({
   devTools: process.env.REACT_APP_ENVIRONMENT !== "PRODUCTION",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false,
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
     }).concat(apiSlice.middleware),
   reducer: persistedReducer,
 });

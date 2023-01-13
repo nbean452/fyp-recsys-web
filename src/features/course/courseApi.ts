@@ -1,3 +1,4 @@
+import { Filter, Pagination } from "@constants/types";
 import apiSlice from "@features/apiSlice";
 
 export const courseApi = apiSlice.injectEndpoints({
@@ -8,8 +9,8 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
     getCourses: builder.query({
-      query: () => ({
-        url: "/courses/",
+      query: ({ limit, offset }: Pagination & Filter) => ({
+        url: `/courses/?limit=${limit}&offset=${offset}`,
       }),
     }),
   }),

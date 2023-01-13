@@ -1,32 +1,25 @@
-import { useEffect } from "react";
-
 import { Typography, Row, Col, Card } from "antd";
 import { NextPage } from "next";
 
 import Layout from "@components/Layout";
 import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
+import type { CourseWithRating } from "@constants/types";
 import { useGetCoursesQuery } from "@features/course/courseApi";
-import { clearCourse, setCourses } from "@features/course/courseSlice";
-import { useDispatch, useSelector } from "@utils/hooks";
 
 const CoursesPage: NextPage = () => {
   const { Text } = Typography;
   const { Meta } = Card;
 
-  const dispatch = useDispatch();
+  // TODO, move to a const file
+  const page = 1;
+  const limit = 25;
+  const offset = (page - 1) * limit;
 
-  const { courses } = useSelector((state) => state.course);
+  const { data, isSuccess } = useGetCoursesQuery({ limit, offset });
 
-  const { data, isSuccess } = useGetCoursesQuery({});
+  const courses: CourseWithRating[] = data?.results;
 
-  useEffect(() => {
-    if (data?.results)
-      dispatch(setCourses({ courses: data.results, totalCourses: data.count }));
-    return () => {
-      dispatch(clearCourse());
-    };
-  }, [dispatch, data]);
   return (
     <Layout>
       <Text>Courses</Text>
