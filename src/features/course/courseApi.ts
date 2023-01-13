@@ -9,8 +9,21 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
     getCourses: builder.query({
-      query: ({ limit, offset }: Pagination & Filter) => ({
-        url: `/courses/?limit=${limit}&offset=${offset}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.results.map(({ code }: { code: string }) => ({
+                code,
+                type: "Course" as const,
+              })),
+            ]
+          : ["Course"],
+      query: ({
+        limit = 25,
+        offset = 0,
+        filter = "",
+      }: Pagination & Filter) => ({
+        url: `/courses/?limit=${limit}&offset=${offset}&filter=${filter}`,
       }),
     }),
   }),

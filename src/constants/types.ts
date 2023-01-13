@@ -1,6 +1,7 @@
 export interface BaseCourse {
   name: string;
   code: string;
+  title: string;
   description: string;
   semester: number;
   is_active: boolean;
@@ -44,5 +45,5 @@ export interface Pagination {
 }
 
 export interface Filter {
-  filter?: string;
+  filter: string;
 }

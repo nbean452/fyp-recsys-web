@@ -32,22 +32,13 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  // const [login, { isLoading }] = useLoginMutation();
   const [login] = useLoginMutation();
 
   const handleSubmit = async (values: any) => {
     const { username, password } = values;
     try {
       const res = await login({ password, username }).unwrap();
-      dispatch(
-        setCredentials({
-          token: {
-            access: res.access,
-            refresh: res.refresh,
-          },
-          username,
-        }),
-      );
+      dispatch(setCredentials(res));
       onOk();
     } catch (err: any) {
       if (!err?.data) {
