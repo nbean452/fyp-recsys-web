@@ -37,3 +37,12 @@ export interface LabelValue {
   label: string;
   value: string;
 }
+
+export interface Pagination {
+  limit: number;
+  offset: number;
+}
+
+export interface Filter {
+  filter?: string;
+}
