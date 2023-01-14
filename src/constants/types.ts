@@ -1,3 +1,7 @@
+import React from "react";
+
+import { MenuProps } from "antd";
+
 export interface BaseCourse {
   name: string;
   code: string;
@@ -46,4 +50,12 @@ export interface Pagination {
 
 export interface Filter {
   filter: string;
+}
+
+export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export interface HeaderType {
+  menuItems: MenuProps["items"];
+  setShowLogin: SetStateType<boolean>;
+  setShowRegister: SetStateType<boolean>;
 }

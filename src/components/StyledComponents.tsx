@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Space } from "antd";
 import NextLink from "next/link";
 import styled from "styled-components";
 
@@ -53,4 +53,8 @@ export const StyledMenu = styled(Menu)`
     inset-inline: 0 !important;
     border-radius: 0 !important;
   }
+`;
+
+export const StyledSpace = styled(Space)`
+  width: 100%;
 `;
