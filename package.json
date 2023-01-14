@@ -29,6 +29,7 @@
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "sharp": "^0.31.2",
+    "snakecase-keys": "^5.4.4",
     "styled-components": "^5.3.6",
     "superagent": "^8.0.6"
   },
