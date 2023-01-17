@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { AutoComplete, Input } from "antd";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 
+import DEFAULT_PAGINATION_CONFIG from "@constants/pagination";
 import { BaseCourse, LabelValue } from "@constants/types";
 import { useGetCoursesQuery } from "@features/course/courseApi";
 import { useGetQueryParams } from "@utils/hooks";
@@ -14,18 +15,17 @@ const SearchCourse = () => {
 
   const router = useRouter();
 
-  const filter = useGetQueryParams();
+  const { filter } = useGetQueryParams();
 
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>(filter);
 
-  const { data } = useGetCoursesQuery({ filter: search, limit: 25, offset: 0 });
+  const { data } = useGetCoursesQuery({
+    filter: search,
+    // below two objects are fixed!
+    limit: DEFAULT_PAGINATION_CONFIG.pageSizeOptions[0],
+    offset: 0,
+  });
   const courses: BaseCourse[] = data?.results;
-
-  // to update input field with query params
-  useEffect(() => {
-    if (router.isReady) setSearch(filter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.isReady]);
 
   const [options, setOptions] = useState<LabelValue[]>([]);
 

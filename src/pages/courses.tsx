@@ -1,5 +1,4 @@
 import { Typography, Row, Col, Card, Button } from "antd";
-import parseInt from "lodash/parseInt";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
@@ -16,11 +15,9 @@ const CoursesPage: NextPage = () => {
   const { Meta } = Card;
 
   const router = useRouter();
-  const page = parseInt(useGetQueryParams("page", "1"));
-  const filter = useGetQueryParams();
 
-  // TODO, move to a const file
-  const limit = 2;
+  const { filter, limit, page } = useGetQueryParams();
+
   const offset = (page - 1) * limit;
 
   const { data, isFetching, isError } = useGetCoursesQuery({
