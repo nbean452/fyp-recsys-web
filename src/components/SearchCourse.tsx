@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AutoComplete, Input } from "antd";
 import useTranslation from "next-translate/useTranslation";
@@ -29,25 +29,24 @@ const SearchCourse = () => {
 
   const [options, setOptions] = useState<LabelValue[]>([]);
 
-  const handleSearchSelect = (value: string) => {
-    setSearch(value);
+  const handleSearchSelect = (value: string) =>
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, filter: value },
+      query: { filter: value },
     });
-  };
 
-  const handleChange = (value: string) => {
-    setSearch(value);
+  const handleChange = (value: string) => setSearch(value);
+
+  useEffect(() => {
     setOptions(
-      value === ""
+      search === ""
         ? []
-        : courses.map((course) => ({
+        : courses?.map((course) => ({
             label: course.name,
             value: course.name,
           })),
     );
-  };
+  }, [search, courses]);
 
   return (
     <AutoComplete
