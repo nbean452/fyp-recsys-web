@@ -66,7 +66,7 @@ const CoursesPage: NextPage = () => {
                 <Meta
                   description={<Text ellipsis>{course.title}</Text>}
                   title={
-                    <StyledLink href={`/course/${course.code}`} shallow>
+                    <StyledLink href={`/course/${course.code}`}>
                       {course.code}
                     </StyledLink>
                   }
