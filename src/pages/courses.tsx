@@ -60,14 +60,14 @@ const CoursesPage: NextPage = () => {
         </Button>
 
         <Row gutter={[16, 16]}>
-          {courses?.map((item, index) => (
-            <Col key={index} lg={8} md={12} sm={24} xl={6} xs={24}>
+          {courses?.map((course) => (
+            <Col key={course.name} lg={8} md={12} sm={24} xl={6} xs={24}>
               <Card>
                 <Meta
-                  description={<Text ellipsis>{item.title}</Text>}
+                  description={<Text ellipsis>{course.title}</Text>}
                   title={
-                    <StyledLink href={`/course/${item.code}`} shallow>
-                      {item.code}
+                    <StyledLink href={`/course/${course.code}`} shallow>
+                      {course.code}
                     </StyledLink>
                   }
                 />

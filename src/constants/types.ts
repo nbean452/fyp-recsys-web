@@ -7,7 +7,7 @@ export interface BaseCourse {
   code: string;
   title: string;
   description: string;
-  semester: number;
+  availability: string[3];
   is_active: boolean;
   created_at: string;
   updated_at: string;
