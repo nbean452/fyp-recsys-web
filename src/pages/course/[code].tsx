@@ -1,6 +1,7 @@
 import { Typography } from "antd";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 
 import Breadcrumb from "@components/Breadcrumb";
 import Layout from "@components/Layout";
@@ -13,6 +14,8 @@ interface CourseSlugProps {
 }
 
 const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
+  const router = useRouter();
+
   const { Title, Paragraph } = Typography;
 
   const { data: course, isError, isFetching } = useGetCourseQuery(code);
@@ -23,6 +26,12 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
     { href: "/", text: t`nav.home` },
     { href: `/course/${code}`, text: code },
   ];
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Layout>
