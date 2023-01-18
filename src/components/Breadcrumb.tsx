@@ -13,7 +13,7 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
   return (
     <AntdBreadcrumb>
       {items.map((item) => (
-        <AntdBreadcrumb.Item>
+        <AntdBreadcrumb.Item key={item.href}>
           <StyledLink href={item.href}>{item.text}</StyledLink>
         </AntdBreadcrumb.Item>
       ))}

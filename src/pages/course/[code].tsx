@@ -8,21 +8,10 @@ import RTKComponent from "@components/RTKComponent";
 import { useGetCourseQuery } from "@features/course/courseApi";
 
 interface CourseSlugProps {
-  // course: CourseWithRating;
-  // isError: boolean;
-  // isFetching: boolean;
   code: string;
 }
 
-const CourseSlugPage: NextPage<CourseSlugProps> = ({
-  code,
-  // course,
-  // isError,
-  // isFetching,
-}) => {
-  // const router = useRouter();
-  // const { code } = router.query;
-
+const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   const { Title, Paragraph } = Typography;
 
   const { data: course, isError, isFetching } = useGetCourseQuery(code);
@@ -46,6 +35,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({
   );
 };
 
+// TODO: improve this! maybe make hook for this
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // const { data: course, isError, isFetching } = useGetCourseQuery(query.code);
   return {
