@@ -1,26 +1,37 @@
 import { Typography } from "antd";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
 
 import Breadcrumb from "@components/Breadcrumb";
 import Layout from "@components/Layout";
 import RTKComponent from "@components/RTKComponent";
 import { useGetCourseQuery } from "@features/course/courseApi";
 
-const CourseSlugPage: NextPage = () => {
-  const router = useRouter();
-  const { code } = router.query;
+interface CourseSlugProps {
+  // course: CourseWithRating;
+  // isError: boolean;
+  // isFetching: boolean;
+  code: string;
+}
+
+const CourseSlugPage: NextPage<CourseSlugProps> = ({
+  code,
+  // course,
+  // isError,
+  // isFetching,
+}) => {
+  // const router = useRouter();
+  // const { code } = router.query;
 
   const { Title, Paragraph } = Typography;
 
-  const { data: courseData, isError, isFetching } = useGetCourseQuery(code);
+  const { data: course, isError, isFetching } = useGetCourseQuery(code);
 
   const { t } = useTranslation("common");
 
   const breadcrumbItems = [
     { href: "/", text: t`nav.home` },
-    { href: router.asPath, text: code as string },
+    { href: `/course/${code}`, text: code },
   ];
 
   return (
@@ -28,11 +39,18 @@ const CourseSlugPage: NextPage = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <RTKComponent isError={isError} isFetching={isFetching}>
-        <Title level={3}>{courseData?.name}</Title>
-        <Paragraph>{courseData?.description}</Paragraph>
+        <Title level={3}>{course?.name}</Title>
+        <Paragraph>{course?.description}</Paragraph>
       </RTKComponent>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  // const { data: course, isError, isFetching } = useGetCourseQuery(query.code);
+  return {
+    props: { code: query.code },
+  };
 };
 
 export default CourseSlugPage;
