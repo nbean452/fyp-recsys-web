@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
+
 import { Typography, Row, Col, Card, Button } from "antd";
+import includes from "lodash/includes";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import Layout from "@components/Layout";
+import Loader from "@components/Loader";
 import RTKComponent from "@components/RTKComponent";
 import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
@@ -27,6 +31,22 @@ const CoursesPage: NextPage = () => {
   });
 
   const courses: CourseWithRating[] = data?.results;
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (includes(url, "/course/")) setLoading(true);
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
+
+  if (loading) return <Loader />;
 
   return (
     <Layout>
