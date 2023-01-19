@@ -6,9 +6,7 @@ import {
   StyledLayout,
   StyledSpace,
 } from "@components/StyledComponents";
-// import { getImg } from "@utils/getImg";
 
-import wallpaper from "../../../public/svg/wallpaper.svg";
 import Header from "./Header";
 
 interface LayoutProps {
@@ -27,32 +25,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       </Head>
       <StyledLayout>
         <Header />
-        <StyledContent
-          style={{
-            backgroundImage: `url(${wallpaper.src})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            // minHeight: "100vh",
-            // height: "100vh",
-            // width: "100vw",
-          }}
-        >
-          {/* <div
-            style={{
-              height: "100vh",
-              position: "fixed",
-              width: "100%",
-              zIndex: -1,
-            }}
-          >
-            <Image
-              alt="wallpaper"
-              draggable={false}
-              src={getImg("wallpaper")}
-              style={{ objectFit: "cover" }}
-              fill
-            />
-          </div> */}
+        <StyledContent>
           <StyledSpace direction="vertical">{children}</StyledSpace>
         </StyledContent>
         <Footer />

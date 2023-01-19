@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const paths = {
-  wallpaper: require("public/svg/wallpaper.svg"),
+  // wallpaper: require("public/svg/wallpaper.svg"),
 };
 
 type ImgPaths = keyof typeof paths;
