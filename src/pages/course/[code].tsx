@@ -30,7 +30,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <h1>Loading...</h1>;
   }
 
   return (
@@ -59,15 +59,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = courses.map((course) => ({ params: { code: course.code } }));
 
   return {
-    fallback: true, // can also be true or 'blocking'
+    fallback: true,
     paths,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { code } = params as { code: string };
+
   return {
     props: { code },
+    revalidate: 5,
   };
 };
 

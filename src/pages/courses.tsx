@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+
 import { Typography, Row, Col, Card, Button } from "antd";
+import { includes } from "lodash";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
@@ -27,6 +30,33 @@ const CoursesPage: NextPage = () => {
   });
 
   const courses: CourseWithRating[] = data?.results;
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      // console.log(`App is changing to ${url} `);
+      if (includes(url, "/course/")) setLoading(true);
+    };
+
+    // const handleRouteComplete = (url: string) => {
+    //   console.log(`App changed to ${url} `);
+
+    //   setLoading(false);
+    // };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    // router.events.on("routeChangeComplete", handleRouteComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+      // router.events.off("routeChangeComplete", handleRouteComplete);
+    };
+  }, [router.events]);
+
+  if (loading) {
+    return <h1>redirecting and building...</h1>;
+  }
 
   return (
     <Layout>
