@@ -1,27 +1,17 @@
 import { Typography } from "antd";
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 
 import Layout from "@components/Layout";
 
-interface PostSlugProps {
-  code: string;
-}
-
-const PostSlugPage: NextPage<PostSlugProps> = ({ code }) => {
+const PostSlugPage: NextPage = () => {
+  const router = useRouter();
+  const { code } = router.query;
   return (
     <Layout>
       <Typography.Text>{code}</Typography.Text>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { code } = context.query;
-  return {
-    props: {
-      code,
-    },
-  };
 };
 
 export default PostSlugPage;
