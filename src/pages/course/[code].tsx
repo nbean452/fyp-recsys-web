@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import Breadcrumb from "@components/Breadcrumb";
 import Layout from "@components/Layout";
+import Loader from "@components/Loader";
 import RTKComponent from "@components/RTKComponent";
 import { CourseWithRating } from "@constants/types";
 import { useGetCourseQuery } from "@features/course/courseApi";
@@ -30,7 +31,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   return (

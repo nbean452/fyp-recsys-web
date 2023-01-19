@@ -9,7 +9,7 @@ import GlobalStyle from "@components/GlobalStyle";
 import configureStore from "@features/configureStore";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const [showChild, setShowChild] = useState(false);
+  const [showChild, setShowChild] = useState<boolean>(false);
 
   const { store, persistor } = configureStore;
 
