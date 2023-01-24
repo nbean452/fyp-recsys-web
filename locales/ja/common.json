@@ -4,9 +4,21 @@
     "courses": "コース",
     "docs": "資料",
     "login": "ログイン",
+    "logout": "ログアウト",
     "register": "レジスタ",
     "search": "コースを探す",
     "drawer": "ナビゲーションドロワー"
+  },
+  "notification": {
+    "error": "エラー",
+    "warning": "警告",
+    "info": "情報",
+    "loading": "ローディング中",
+    "success": "成功",
+    "message": {
+      "loggedIn": "ログイン成功",
+      "loggedOut": "ログアウトしました！"
+    }
   },
   "disclaimer": {
     "title": "免責事項",

@@ -4,9 +4,21 @@
     "courses": "Courses",
     "docs": "Docs",
     "login": "Login",
+    "logout": "Logout",
     "register": "Register",
     "search": "Search courses",
     "drawer": "Navigation Drawer"
+  },
+  "notification": {
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "loading": "Loading",
+    "success": "Success",
+    "message": {
+      "loggedIn": "Logged in!",
+      "loggedOut": "Logged out!"
+    }
   },
   "disclaimer": {
     "title": "Disclaimer",

@@ -4,9 +4,21 @@
     "courses": "Kelas",
     "docs": "Dokumen",
     "login": "Masuk",
+    "logout": "Keluar",
     "register": "Daftar",
     "search": "Cari kelas",
     "drawer": "Panel Navigasi"
+  },
+  "notification": {
+    "error": "Eror",
+    "warning": "Peringatan",
+    "info": "Pemberitahuan",
+    "loading": "Memuat",
+    "success": "Sukses",
+    "message": {
+      "loggedIn": "Berhasil masuk!",
+      "loggedOut": "Berhasil keluar!"
+    }
   },
   "disclaimer": {
     "title": "Pemberitahuan",

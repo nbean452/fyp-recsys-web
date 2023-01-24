@@ -2,10 +2,12 @@ import { useState } from "react";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Modal, Typography, Input, Form, Button } from "antd";
+import useTranslation from "next-translate/useTranslation";
 
 import { useLoginMutation } from "@features/auth/authApi";
 import { setCredentials } from "@features/auth/authSlice";
 import { useDispatch } from "@utils/hooks";
+import { success } from "@utils/notification";
 
 interface LoginModalType {
   show: boolean;
@@ -15,7 +17,7 @@ interface LoginModalType {
 
 const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
   const { Text } = Typography;
-
+  const { t } = useTranslation("common");
   const [errMsg, setErrMsg] = useState<string>("");
 
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
     try {
       const res = await login({ password, username }).unwrap();
       dispatch(setCredentials(res));
+      success(t`notification.success`, t`notification.message.loggedIn`);
       onOk();
     } catch (err: any) {
       if (!err?.data) {
@@ -42,7 +45,13 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
   };
 
   return (
-    <Modal open={show} title="Login" onCancel={onCancel} onOk={onOk}>
+    <Modal
+      footer={null}
+      open={show}
+      title="Login"
+      onCancel={onCancel}
+      onOk={onOk}
+    >
       <Form autoComplete="off" name="login" onFinish={handleSubmit}>
         {errMsg && <Text>{errMsg}</Text>}
         <Form.Item
@@ -51,7 +60,6 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
         >
           <Input placeholder="Enter your username" prefix={<UserOutlined />} />
         </Form.Item>
-
         <Form.Item
           name="password"
           rules={[{ message: "Please input your password!", required: true }]}
