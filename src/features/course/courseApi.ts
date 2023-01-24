@@ -8,6 +8,11 @@ export const courseApi = apiSlice.injectEndpoints({
         url: `/course/${code}/`,
       }),
     }),
+    getCourseRecommendations: builder.query({
+      query: (code) => ({
+        url: `/recommend/course/${code}/`,
+      }),
+    }),
     getCourses: builder.query({
       providesTags: (result) =>
         result
@@ -29,4 +34,8 @@ export const courseApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetCoursesQuery, useGetCourseQuery } = courseApi;
+export const {
+  useGetCourseRecommendationsQuery,
+  useGetCoursesQuery,
+  useGetCourseQuery,
+} = courseApi;
