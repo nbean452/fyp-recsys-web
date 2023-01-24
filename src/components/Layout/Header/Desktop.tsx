@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { Col, Space, Button, MenuProps } from "antd";
-import useTranslation from "next-translate/useTranslation";
+import { Col, Space, MenuProps } from "antd";
 import { useRouter } from "next/router";
 
+import LoginRegisterButton from "@components/Layout/Header/LoginRegisterButton";
 import LocaleSwitcher from "@components/LocaleSwitcher";
 import { StyledMenu } from "@components/StyledComponents";
 import { HeaderType } from "@constants/types";
@@ -13,12 +13,17 @@ const DesktopHeader = ({
   setShowLogin,
   setShowRegister,
 }: HeaderType): JSX.Element => {
-  const { t } = useTranslation("common");
-
   const router = useRouter();
 
   const [current, setCurrent] = useState(router.pathname);
   const handleClick: MenuProps["onClick"] = (e) => setCurrent(e.key);
+
+  const handleLoginClick = () => {
+    setShowLogin(true);
+  };
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+  };
 
   return (
     <>
@@ -33,12 +38,10 @@ const DesktopHeader = ({
       </Col>
       <Col md={12} sm={0} xs={0}>
         <Space style={{ float: "right", justifyContent: "right" }}>
-          <Button type="primary" onClick={() => setShowLogin(true)}>
-            {t`nav.login`}
-          </Button>
-          <Button onClick={() => setShowRegister(true)}>
-            {t`nav.register`}
-          </Button>
+          <LoginRegisterButton
+            handleLoginClick={handleLoginClick}
+            handleRegisterClick={handleRegisterClick}
+          />
           <LocaleSwitcher />
         </Space>
       </Col>
