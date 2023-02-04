@@ -7,10 +7,13 @@ RUN mkdir -p /code
 
 WORKDIR /code
 
-COPY package.json package.json
+COPY package.json /code
+COPY yarn.lock /code
 
 RUN yarn install --production
 
 COPY . /code/
 
-CMD [ "yarn", "prod" ]
+RUN yarn build
+
+CMD [ "yarn", "start" ]
