@@ -35,8 +35,6 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
 
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
-        <Title level={2}>Description</Title>
-        <Paragraph>{course?.description}</Paragraph>
 
         <Title level={2}>Description</Title>
         <Paragraph>{course?.description}</Paragraph>
