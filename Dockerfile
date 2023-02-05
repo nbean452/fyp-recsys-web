@@ -3,8 +3,8 @@ ARG NODE_VERSION=16
 FROM node:${NODE_VERSION}-alpine
 # replace this with your application's default port
 
-RUN useradd --uid 10000 runner
-USER 10000
+RUN useradd runner
+USER baeldung
 
 RUN mkdir -p /code
 
