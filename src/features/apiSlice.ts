@@ -3,11 +3,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, logOut } from "@features/auth/authSlice";
 import { error } from "@utils/notification";
 
+const getBaseUrl = () => {
+  if (process.env.NODE_ENV === "production")
+    return process.env.NEXT_PUBLIC_PROD_URL;
+  if (process.env.NEXT_PUBLIC_DOCKERIZED === "true")
+    return "http://api.localhost";
+  return "http://localhost:9000";
+};
+
 const baseQuery = fetchBaseQuery({
-  baseUrl:
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_PROD_URL
-      : process.env.NEXT_PUBLIC_DEV_URL,
+  baseUrl: getBaseUrl(),
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const { access } = (getState() as any).auth.token;
