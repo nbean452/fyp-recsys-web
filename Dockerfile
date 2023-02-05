@@ -15,9 +15,9 @@ RUN yarn install --production
 
 COPY . /code/
 
-RUN chmod 0400 .env
-
 RUN yarn build
+
+RUN rm .env
 
 USER 10000
 
