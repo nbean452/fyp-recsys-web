@@ -1,16 +1,12 @@
 import React from "react";
 
-import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Space } from "antd";
+import { Button, Dropdown, MenuProps, Space, Typography } from "antd";
 import useTranslation from "next-translate/useTranslation";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
-// import { StyledLink } from "@components/StyledComponents";
-// import { LabelValue } from "@constants/types";
-// import { logOut } from "@features/auth/authSlice";
-import { useSelector } from "@utils/hooks";
-import locales from "@utils/locales";
-// import { info } from "@utils/notification";
+import { logOut } from "@features/auth/authSlice";
+import { useSelector, useDispatch } from "@utils/hooks";
+import { success } from "@utils/notification";
 
 interface LoginRegisterButtonProps {
   handleLoginClick: () => void;
@@ -23,60 +19,47 @@ const LoginRegisterButton = ({
   handleRegisterClick,
   direction,
 }: LoginRegisterButtonProps) => {
-  const { t, lang } = useTranslation("common");
+  const { t } = useTranslation("common");
   const { username } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const router = useRouter();
+  const router = useRouter();
 
-  // const items: MenuProps["items"] = locales.map((locale: LabelValue) =>
-  //   locale.value === lang || locale.value === "default"
-  //     ? null
-  //     : {
-  //         key: locale.value,
-  //         label: (
-  //           <StyledLink
-  //             href={router.asPath}
-  //             lang={locale.value}
-  //             locale={locale.value}
-  //           >
-  //             {locale.label}
-  //           </StyledLink>
-  //         ),
-  //       },
-  // );
+  const { Text } = Typography;
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    switch (e.key) {
+      case "profile":
+        router.push("/profile/");
+        break;
+      case "courses":
+        router.push("/profile/courses/");
+        break;
+      case "logout":
+        dispatch(logOut());
+        success("Logout", "Successful logout");
+        break;
+      default:
+        break;
+    }
+  };
 
   const items: MenuProps["items"] = [
-    { key: "1", label: <h1>hi</h1> },
+    { key: "profile", label: "Profile" },
+    { key: "courses", label: "Courses" },
     { type: "divider" },
-    { key: "2", label: <h1>hi</h1> },
-    { type: "divider" },
-    {
-      key: "3",
-      label: (
-        <Button type="ghost" onClick={handleLoginClick}>
-          hi
-        </Button>
-      ),
-    },
+    { key: "logout", label: t`nav.logout` },
   ];
 
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
+
   return username ? (
-    // <Button
-    //   type="primary"
-    //   onClick={() => {
-    //     info(t`notification.info`, t`notification.message.loggedOut`);
-    //     dispatch(logOut());
-    //   }}
-    // >
-    //   {t`nav.logout`}
-    // </Button>
-    <Dropdown menu={{ items }}>
+    <Dropdown menu={menuProps}>
       <Button>
-        <Space>
-          {locales.find((locale) => locale.value === lang)?.label}
-          <DownOutlined />
-        </Space>
+        <Text>{username}</Text>
       </Button>
     </Dropdown>
   ) : (
