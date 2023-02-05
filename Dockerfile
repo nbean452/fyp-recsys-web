@@ -4,7 +4,7 @@ FROM node:${NODE_VERSION}-alpine
 
 RUN mkdir -p /code
 
-RUN adduser --uid 10000 runner
+RUN adduser --uid 10000 -D runner
 USER 10000
 
 WORKDIR /code
