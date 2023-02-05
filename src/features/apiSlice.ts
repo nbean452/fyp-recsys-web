@@ -6,7 +6,7 @@ import { error } from "@utils/notification";
 const getBaseUrl = () => {
   if (process.env.NODE_ENV === "production")
     return process.env.NEXT_PUBLIC_PROD_URL;
-  if (process.env.NEXT_PUBLIC_DOCKERIZED === "true")
+  if (process.env.NEXT_PUBLIC_IS_DOCKERIZED === "true")
     return "http://api.localhost";
   return "http://localhost:9000";
 };
