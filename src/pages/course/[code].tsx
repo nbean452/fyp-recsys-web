@@ -25,7 +25,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   const { t } = useTranslation("common");
 
   const breadcrumbItems = [
-    { href: "/", text: t`nav.home` },
+    { href: "/courses", text: t`nav.courses` },
     { href: `/course/${code}`, text: code },
   ];
 

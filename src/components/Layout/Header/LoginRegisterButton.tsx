@@ -1,5 +1,6 @@
 import React from "react";
 
+import { UserOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, Space, Typography } from "antd";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
@@ -57,8 +58,9 @@ const LoginRegisterButton = ({
   };
 
   return username ? (
-    <Dropdown menu={menuProps}>
+    <Dropdown menu={menuProps} trigger={["click"]}>
       <Button>
+        <UserOutlined />
         <Text>{username}</Text>
       </Button>
     </Dropdown>

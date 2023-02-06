@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-
-import { Typography, Row, Col, Card, Button } from "antd";
-import includes from "lodash/includes";
+import { Typography, Row, Col, Card, Button, Space } from "antd";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import Layout from "@components/Layout";
-import Loader from "@components/Loader";
 import RTKComponent from "@components/RTKComponent";
 import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
@@ -32,22 +28,6 @@ const CoursesPage: NextPage = () => {
 
   const courses: CourseWithRating[] = data?.results;
 
-  const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (includes(url, "/course/")) setLoading(true);
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router.events]);
-
-  if (loading) return <Loader />;
-
   return (
     <Layout>
       <Text>Courses</Text>
@@ -55,29 +35,11 @@ const CoursesPage: NextPage = () => {
       <SearchCourse />
 
       <RTKComponent isError={isError} isFetching={isFetching}>
-        <Text>{data?.count}</Text>
-        <Button
-          disabled={page <= 1}
-          onClick={() =>
-            router.push({
-              pathname: router.pathname,
-              query: { ...router.query, page: `${page - 1}` },
-            })
-          }
-        >
-          Previous
-        </Button>
-        <Button
-          disabled={data ? page >= Math.ceil(data.count / limit) : true}
-          onClick={() =>
-            router.push({
-              pathname: router.pathname,
-              query: { ...router.query, page: `${page + 1}` },
-            })
-          }
-        >
-          Next
-        </Button>
+        <Text>
+          Showing {offset + 1} -{" "}
+          {limit * page > data?.count ? data?.count : limit * page} courses from
+          a total of {data?.count} {data?.count > 1 ? "courses" : "course"}
+        </Text>
 
         <Row gutter={[16, 16]}>
           {courses?.map((course) => (
@@ -95,6 +57,31 @@ const CoursesPage: NextPage = () => {
             </Col>
           ))}
         </Row>
+
+        <Space>
+          <Button
+            disabled={page <= 1}
+            onClick={() =>
+              router.push({
+                pathname: router.pathname,
+                query: { ...router.query, page: `${page - 1}` },
+              })
+            }
+          >
+            Previous
+          </Button>
+          <Button
+            disabled={data ? page >= Math.ceil(data.count / limit) : true}
+            onClick={() =>
+              router.push({
+                pathname: router.pathname,
+                query: { ...router.query, page: `${page + 1}` },
+              })
+            }
+          >
+            Next
+          </Button>
+        </Space>
       </RTKComponent>
     </Layout>
   );
