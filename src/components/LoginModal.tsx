@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Modal, Typography, Input, Form, Button } from "antd";
+import { Modal, Typography, Input, Form, Button, Spin, Space } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
 import { useLoginMutation } from "@features/auth/authApi";
@@ -22,7 +22,7 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (values: any) => {
     const { username, password } = values;
@@ -71,9 +71,12 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
         </Form.Item>
 
         <Form.Item>
-          <Button htmlType="submit" type="primary">
-            Submit
-          </Button>
+          <Space align="center">
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {isLoading && <Spin />}
+          </Space>
         </Form.Item>
       </Form>
     </Modal>
