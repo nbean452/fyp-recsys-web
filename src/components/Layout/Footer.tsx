@@ -1,6 +1,6 @@
-import { InstagramOutlined, FacebookOutlined } from "@ant-design/icons";
 import { Row, Col, Typography, Space } from "antd";
 
+import LocaleSwitcher from "@components/LocaleSwitcher";
 import { StyledFooter, StyledLink } from "@components/StyledComponents";
 
 const Footer = (): JSX.Element => (
@@ -9,17 +9,14 @@ const Footer = (): JSX.Element => (
       <Col>
         <Typography.Text>
           Made by nbean452 on{" "}
-          <StyledLink href="https://github.com/nbean452">Github</StyledLink>
+          <StyledLink href="https://github.com/nbean452" target="_blank">
+            Github
+          </StyledLink>
         </Typography.Text>
       </Col>
       <Col>
         <Space direction="horizontal">
-          <StyledLink href="https://www.instagram.com">
-            <InstagramOutlined />
-          </StyledLink>
-          <StyledLink href="https://www.facebook.com">
-            <FacebookOutlined />
-          </StyledLink>
+          <LocaleSwitcher />
         </Space>
       </Col>
     </Row>
