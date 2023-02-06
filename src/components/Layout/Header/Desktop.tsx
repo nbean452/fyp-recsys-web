@@ -4,7 +4,6 @@ import { Col, Space, MenuProps } from "antd";
 import { useRouter } from "next/router";
 
 import LoginRegisterButton from "@components/Layout/Header/LoginRegisterButton";
-import LocaleSwitcher from "@components/LocaleSwitcher";
 import { StyledMenu } from "@components/StyledComponents";
 import { HeaderType } from "@constants/types";
 
@@ -42,7 +41,6 @@ const DesktopHeader = ({
             handleLoginClick={handleLoginClick}
             handleRegisterClick={handleRegisterClick}
           />
-          <LocaleSwitcher />
         </Space>
       </Col>
     </>

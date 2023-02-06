@@ -5,7 +5,6 @@ import { Col, Space, Button, Drawer } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
 import LoginRegisterButton from "@components/Layout/Header/LoginRegisterButton";
-import LocaleSwitcher from "@components/LocaleSwitcher";
 import { StyledLink } from "@components/StyledComponents";
 import { HeaderType } from "@constants/types";
 
@@ -75,7 +74,6 @@ const MobileHeader = ({
               handleLoginClick={handleLoginClick}
               handleRegisterClick={handleRegisterClick}
             />
-            <LocaleSwitcher />
           </Space>
         </Drawer>
       </Col>
