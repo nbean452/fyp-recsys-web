@@ -1,4 +1,4 @@
-import { DownOutlined } from "@ant-design/icons";
+import { UpOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Space, Button } from "antd";
 import useTranslation from "next-translate/useTranslation";
@@ -35,7 +35,7 @@ const LocaleSwitcher = () => {
       <Button>
         <Space>
           {locales.find((locale) => locale.value === lang)?.label}
-          <DownOutlined />
+          <UpOutlined />
         </Space>
       </Button>
     </Dropdown>
