@@ -1,11 +1,13 @@
-import { Typography } from "antd";
+import { Card, Col, Typography } from "antd";
 import { GetServerSideProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 
 import Breadcrumb from "@components/Breadcrumb";
+import CourseAvailability from "@components/CourseAvailability";
 import Layout from "@components/Layout";
 import RTKComponent from "@components/RTKComponent";
 import { StyledLink } from "@components/StyledComponents";
+import { CourseWithRating } from "@constants/types";
 import {
   useGetCourseQuery,
   useGetCourseRecommendationsQuery,
@@ -18,7 +20,15 @@ interface CourseSlugProps {
 const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   const { Title, Paragraph } = Typography;
 
-  const { data: course, isError, isFetching } = useGetCourseQuery(code);
+  const {
+    data: course,
+    isError,
+    isFetching,
+  }: {
+    data?: CourseWithRating;
+    isError: boolean;
+    isFetching: boolean;
+  } = useGetCourseQuery(code);
 
   const { data: courseRecs } = useGetCourseRecommendationsQuery(code);
 
@@ -36,9 +46,23 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
 
-        <Title level={2}>Description</Title>
-        <Paragraph>{course?.description}</Paragraph>
-
+        <Title level={2}>Semester Offerings</Title>
+        <CourseAvailability
+          unparsedAvailability={
+            course?.availability as [string, string, string]
+          }
+        />
+        <Col lg={8} md={12} sm={24}>
+          <Card title="Pre-requisites">
+            {course?.prerequisites ? (
+              course?.prerequisites.map((prerequisite) => (
+                <Paragraph>{prerequisite}</Paragraph>
+              ))
+            ) : (
+              <Paragraph>None</Paragraph>
+            )}
+          </Card>
+        </Col>
         <Title level={2}>Similar Courses</Title>
         {courseRecs?.map((course: any) => (
           <StyledLink href={`/course/${course.code}`}>{course.name}</StyledLink>

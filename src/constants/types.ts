@@ -6,8 +6,9 @@ export interface BaseCourse {
   name: string;
   code: string;
   title: string;
+  prerequisites: string[];
   description: string;
-  availability: string[3];
+  availability: [string, string, string];
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -35,7 +36,7 @@ export interface BaseUser {
 }
 
 export interface CourseWithRating extends BaseCourse {
-  ratings: Omit<BaseRating, "course">[];
+  ratings: BaseRating[];
 }
 
 export interface LabelValue {
