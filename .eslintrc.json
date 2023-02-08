@@ -23,6 +23,12 @@
   },
   "plugins": ["sort-keys", "import"],
   "rules": {
+    // "prettier/prettier": [
+    //   "error",
+    //   {
+    //     "semi": false
+    //   }
+    // ],
     "no-param-reassign": [
       "error",
       {
