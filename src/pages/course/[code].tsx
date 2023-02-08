@@ -1,4 +1,5 @@
 import { Card, Col, Typography } from "antd";
+import isEmpty from "lodash/isEmpty";
 import { GetServerSideProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 
@@ -46,6 +47,9 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
 
+        {/* <Title level={2}>Description</Title>
+        <Paragraph>{course?.description}</Paragraph> */}
+
         <Title level={2}>Semester Offerings</Title>
         <CourseAvailability
           unparsedAvailability={
@@ -54,7 +58,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
         />
         <Col lg={8} md={12} sm={24}>
           <Card title="Pre-requisites">
-            {course?.prerequisites ? (
+            {!isEmpty(course?.prerequisites) ? (
               course?.prerequisites.map((prerequisite) => (
                 <Paragraph>{prerequisite}</Paragraph>
               ))
