@@ -6,7 +6,7 @@ import Layout from "@components/Layout";
 import RTKComponent from "@components/RTKComponent";
 import SearchCourse from "@components/SearchCourse";
 import { StyledLink } from "@components/StyledComponents";
-import type { CourseWithRating } from "@constants/types";
+import type { CourseWithReview } from "@constants/types";
 import { useGetCoursesQuery } from "@features/course/courseApi";
 import { useGetQueryParams } from "@utils/hooks";
 
@@ -26,7 +26,7 @@ const CoursesPage: NextPage = () => {
     offset,
   });
 
-  const courses: CourseWithRating[] = data?.results;
+  const courses: CourseWithReview[] = data?.results;
 
   return (
     <Layout>

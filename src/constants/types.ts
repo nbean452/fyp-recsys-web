@@ -3,6 +3,7 @@ import React from "react";
 import { MenuProps } from "antd";
 
 export interface BaseCourse {
+  id: number;
   name: string;
   code: string;
   title: string;
@@ -14,7 +15,7 @@ export interface BaseCourse {
   updated_at: string;
 }
 
-export interface BaseRating {
+export interface BaseReview {
   id: number;
   rating: number;
   comment: string;
@@ -35,8 +36,12 @@ export interface BaseUser {
   date_joined: string;
 }
 
-export interface CourseWithRating extends BaseCourse {
-  ratings: BaseRating[];
+export interface ReviewWithUser extends BaseReview {
+  user: BaseUser;
+}
+
+export interface CourseWithReview extends BaseCourse {
+  reviews: ReviewWithUser[];
 }
 
 export interface LabelValue {
