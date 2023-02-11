@@ -47,7 +47,13 @@ const RegisterModal = ({
   };
 
   return (
-    <Modal open={show} title="Register" onCancel={onCancel} onOk={onOk}>
+    <Modal
+      footer={null}
+      open={show}
+      title="Register"
+      onCancel={onCancel}
+      onOk={onOk}
+    >
       <Form autoComplete="off" name="register" onFinish={handleSubmit}>
         {errMsg && <Text>{errMsg}</Text>}
         <Form.Item
