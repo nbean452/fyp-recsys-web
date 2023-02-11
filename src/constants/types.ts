@@ -10,30 +10,34 @@ export interface BaseCourse {
   prerequisites: string[];
   description: string;
   availability: [string, string, string];
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface BaseReview {
   id: number;
   rating: number;
   comment: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface BaseUser {
   id: number;
-  last_login: string;
-  is_superuser: boolean;
   username: string;
-  first_name: string;
-  last_name: string;
+  isSuperuser: boolean;
+  firstName: string;
+  lastName: string;
   email: string;
-  is_staff: boolean;
-  is_active: boolean;
-  date_joined: string;
+  isStaff: boolean;
+  isActive: boolean;
+  dateJoined: Date;
+  lastLogin: Date;
+}
+
+export interface UserDetail extends BaseUser {
+  takenCourse: string[];
 }
 
 export interface ReviewWithUser extends BaseReview {
