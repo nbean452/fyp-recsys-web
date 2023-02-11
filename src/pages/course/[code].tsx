@@ -1,4 +1,6 @@
-import { Card, Col, Typography } from "antd";
+import { useState } from "react";
+
+import { Button, Card, Col, Rate, Space, Typography } from "antd";
 import isEmpty from "lodash/isEmpty";
 import { GetServerSideProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
@@ -6,9 +8,10 @@ import useTranslation from "next-translate/useTranslation";
 import Breadcrumb from "@components/Breadcrumb";
 import CourseAvailability from "@components/CourseAvailability";
 import Layout from "@components/Layout";
+import ReviewModal from "@components/ReviewModal";
 import RTKComponent from "@components/RTKComponent";
 import { StyledLink } from "@components/StyledComponents";
-import { CourseWithRating } from "@constants/types";
+import { CourseWithReview } from "@constants/types";
 import {
   useGetCourseQuery,
   useGetCourseRecommendationsQuery,
@@ -19,14 +22,16 @@ interface CourseSlugProps {
 }
 
 const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
-  const { Title, Paragraph } = Typography;
+  const { Title, Text, Paragraph } = Typography;
+
+  const [showReview, setShowReview] = useState<boolean>(false);
 
   const {
     data: course,
     isError,
     isFetching,
   }: {
-    data?: CourseWithRating;
+    data?: CourseWithReview;
     isError: boolean;
     isFetching: boolean;
   } = useGetCourseQuery(code);
@@ -47,8 +52,30 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
 
-        {/* <Title level={2}>Description</Title>
-        <Paragraph>{course?.description}</Paragraph> */}
+        <Button type="primary" onClick={() => setShowReview(true)}>
+          Add Review
+        </Button>
+
+        <Card>
+          <Title>Reviews</Title>
+          {!isEmpty(course?.reviews) ? (
+            course?.reviews.map((review) => (
+              <Card>
+                <Space>
+                  <Rate defaultValue={review.rating} disabled />
+                  <Text>{review.user.username}</Text>
+                </Space>
+                <Paragraph
+                  ellipsis={{ expandable: true, rows: 2, symbol: "more" }}
+                >
+                  {review.comment}
+                </Paragraph>
+              </Card>
+            ))
+          ) : (
+            <Paragraph>No ratings yet!</Paragraph>
+          )}
+        </Card>
 
         <Title level={2}>Semester Offerings</Title>
         <CourseAvailability
@@ -71,7 +98,16 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
         {courseRecs?.map((course: any) => (
           <StyledLink href={`/course/${course.code}`}>{course.name}</StyledLink>
         ))}
+
+        <Title level={2}>Description</Title>
+        <Paragraph>{course?.description}</Paragraph>
       </RTKComponent>
+      <ReviewModal
+        courseId={course?.id as number}
+        show={showReview}
+        onCancel={() => setShowReview(false)}
+        onOk={() => setShowReview(false)}
+      />
     </Layout>
   );
 };
