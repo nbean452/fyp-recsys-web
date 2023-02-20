@@ -9,6 +9,10 @@ interface DataType {
   semesterThree: string;
 }
 
+interface CourseAvailabilityProps {
+  unparsedAvailability: [string, string, string];
+}
+
 const columns: ColumnsType<DataType> = [
   {
     dataIndex: "semesterOne",
@@ -37,17 +41,18 @@ const formAvailabilityData = (
   },
 ];
 
-interface CourseAvailabilityProps {
-  unparsedAvailability: [string, string, string];
-}
-
 const CourseAvailability = ({
   unparsedAvailability,
 }: CourseAvailabilityProps): JSX.Element => {
   const data = formAvailabilityData(unparsedAvailability);
   return (
     <Col lg={8} md={12} sm={24}>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        rowKey="semesterOne"
+      />
     </Col>
   );
 };

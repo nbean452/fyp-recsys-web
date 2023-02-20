@@ -11,16 +11,16 @@ export interface BaseCourse {
   description: string;
   availability: [string, string, string];
   isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface BaseReview {
   id: number;
   rating: number;
   comment: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface BaseUser {
@@ -36,16 +36,15 @@ export interface BaseUser {
   lastLogin: Date;
 }
 
-export interface UserDetail extends BaseUser {
-  takenCourse: string[];
-}
-
 export interface ReviewWithUser extends BaseReview {
   user: BaseUser;
 }
 
 export interface CourseWithReview extends BaseCourse {
   reviews: ReviewWithUser[];
+}
+export interface UserDetail extends BaseUser {
+  takenCourse: CourseWithReview[];
 }
 
 export interface LabelValue {
