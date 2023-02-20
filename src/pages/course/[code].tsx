@@ -1,21 +1,27 @@
-import { useState } from "react";
-
 import { Button, Card, Col, Rate, Space, Typography } from "antd";
+import { concat } from "lodash";
+import find from "lodash/find";
 import isEmpty from "lodash/isEmpty";
+import isUndefined from "lodash/isUndefined";
 import { GetServerSideProps, NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 import Breadcrumb from "@components/Breadcrumb";
 import CourseAvailability from "@components/CourseAvailability";
 import Layout from "@components/Layout";
-import ReviewModal from "@components/ReviewModal";
 import RTKComponent from "@components/RTKComponent";
-import { StyledLink } from "@components/StyledComponents";
+import { StyledLink, StyledSpace } from "@components/StyledComponents";
 import { CourseWithReview } from "@constants/types";
+import { setAuth } from "@features/auth/authSlice";
 import {
   useGetCourseQuery,
   useGetCourseRecommendationsQuery,
 } from "@features/course/courseApi";
+import { useUpdateTakenCourseMutation } from "@features/profile/profileApi";
+import { useSelector } from "@utils/hooks";
+import { success } from "@utils/notification";
 
 interface CourseSlugProps {
   code: string;
@@ -24,7 +30,17 @@ interface CourseSlugProps {
 const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
   const { Title, Text, Paragraph } = Typography;
 
-  const [showReview, setShowReview] = useState<boolean>(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { username, takenCourse } = useSelector((state) => state.auth);
+
+  const [updateTakenCourse] = useUpdateTakenCourseMutation();
+  const { t } = useTranslation("common");
+  // const [errMsg, setErrMsg] = useState<string>("");
+
+  const getTakenCourseCodes = () =>
+    takenCourse.map((course: any) => course.code);
 
   const {
     data: course,
@@ -36,9 +52,39 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
     isFetching: boolean;
   } = useGetCourseQuery(code);
 
+  const handleSubmit = async () => {
+    const newTakenCourseCodes = concat(getTakenCourseCodes(), course?.code);
+
+    try {
+      const res = await updateTakenCourse({
+        takenCourse: newTakenCourseCodes,
+        username,
+      }).unwrap();
+      dispatch(setAuth(res));
+      success(
+        t`notification.success`,
+        t`notification.message.updatedTakenCourse`,
+      );
+      router.reload();
+    } catch (err: any) {
+      // if (!err?.data) {
+      //   setErrMsg("No server response");
+      // } else if (err?.status === 400) {
+      //   setErrMsg(err.data.detail);
+      // } else if (err?.status === 401) {
+      //   setErrMsg(err.data.detail);
+      // } else {
+      //   setErrMsg("Login Failed");
+      // }
+    }
+  };
+
   const { data: courseRecs } = useGetCourseRecommendationsQuery(code);
 
-  const { t } = useTranslation("common");
+  const getIsTaken = () =>
+    !isUndefined(find(getTakenCourseCodes(), (code) => code === course?.code));
+
+  const isTaken = getIsTaken();
 
   const breadcrumbItems = [
     { href: "/courses", text: t`nav.courses` },
@@ -52,26 +98,28 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
 
-        <Button type="primary" onClick={() => setShowReview(true)}>
-          Add Review
+        <Button disabled={isTaken} onClick={handleSubmit}>
+          {isTaken ? "Already taken" : "Take course"}
         </Button>
 
         <Card>
           <Title>Reviews</Title>
           {!isEmpty(course?.reviews) ? (
-            course?.reviews.map((review) => (
-              <Card>
-                <Space>
-                  <Rate defaultValue={review.rating} disabled />
-                  <Text>{review.user.username}</Text>
-                </Space>
-                <Paragraph
-                  ellipsis={{ expandable: true, rows: 2, symbol: "more" }}
-                >
-                  {review.comment}
-                </Paragraph>
-              </Card>
-            ))
+            <StyledSpace direction="vertical">
+              {course?.reviews.map((review) => (
+                <Card key={review.user.username}>
+                  <Space>
+                    <Rate defaultValue={review.rating} disabled />
+                    <Text>{review.user.username}</Text>
+                  </Space>
+                  <Paragraph
+                    ellipsis={{ expandable: true, rows: 2, symbol: "more" }}
+                  >
+                    {review.comment}
+                  </Paragraph>
+                </Card>
+              ))}
+            </StyledSpace>
           ) : (
             <Paragraph>No ratings yet!</Paragraph>
           )}
@@ -87,7 +135,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
           <Card title="Pre-requisites">
             {!isEmpty(course?.prerequisites) ? (
               course?.prerequisites.map((prerequisite) => (
-                <Paragraph>{prerequisite}</Paragraph>
+                <Paragraph key={prerequisite}>{prerequisite}</Paragraph>
               ))
             ) : (
               <Paragraph>None</Paragraph>
@@ -95,19 +143,15 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
           </Card>
         </Col>
         <Title level={2}>Similar Courses</Title>
-        {courseRecs?.map((course: any) => (
-          <StyledLink href={`/course/${course.code}`}>{course.name}</StyledLink>
+        {courseRecs?.map((course: CourseWithReview) => (
+          <StyledLink href={`/course/${course.code}`} key={course.code}>
+            {course.name}
+          </StyledLink>
         ))}
 
         <Title level={2}>Description</Title>
         <Paragraph>{course?.description}</Paragraph>
       </RTKComponent>
-      <ReviewModal
-        courseId={course?.id as number}
-        show={showReview}
-        onCancel={() => setShowReview(false)}
-        onOk={() => setShowReview(false)}
-      />
     </Layout>
   );
 };
