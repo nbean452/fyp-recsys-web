@@ -64,6 +64,7 @@
     "quotes": [1, "double", { "avoidEscape": true }],
     "no-shadow": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "react/jsx-key": "error",
     "react/jsx-one-expression-per-line": ["off", { "allow": "literal" }],
     "react/jsx-props-no-spreading": "off",
     "sort-vars": "warn",
