@@ -6,7 +6,7 @@ This website will be where users mainly use the application and the API server t
 
 Made using [Next.js](https://nextjs.org/).
 
-# Deployment
+## Deployment
 
 Deployed as a dockerized app alongside the API server within a Digital Ocean's droplet.
 
