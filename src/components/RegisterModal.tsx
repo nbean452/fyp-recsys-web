@@ -4,7 +4,7 @@ import { Modal, Typography, Input, Form, Button } from "antd";
 import snakecaseKeys from "snakecase-keys";
 
 import { useRegisterMutation } from "@features/auth/authApi";
-import { setCredentials } from "@features/auth/authSlice";
+import { setAuth } from "@features/auth/authSlice";
 import { useDispatch } from "@utils/hooks";
 
 interface RegisterModalType {
@@ -31,7 +31,7 @@ const RegisterModal = ({
 
     try {
       const res = await register(requestObject).unwrap();
-      dispatch(setCredentials(res));
+      dispatch(setAuth(res));
       onOk();
     } catch (err: any) {
       if (!err?.data) {

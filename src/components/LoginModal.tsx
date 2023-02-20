@@ -5,7 +5,7 @@ import { Modal, Typography, Input, Form, Button, Spin, Space } from "antd";
 import useTranslation from "next-translate/useTranslation";
 
 import { useLoginMutation } from "@features/auth/authApi";
-import { setCredentials } from "@features/auth/authSlice";
+import { setAuth } from "@features/auth/authSlice";
 import { useDispatch } from "@utils/hooks";
 import { success } from "@utils/notification";
 
@@ -28,7 +28,7 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
     const { username, password } = values;
     try {
       const res = await login({ password, username }).unwrap();
-      dispatch(setCredentials(res));
+      dispatch(setAuth(res));
       success(t`notification.success`, t`notification.message.loggedIn`);
       onOk();
     } catch (err: any) {

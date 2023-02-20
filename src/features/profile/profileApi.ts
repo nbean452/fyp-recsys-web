@@ -10,7 +10,7 @@ export const profileApi = apiSlice.injectEndpoints({
     updateTakenCourse: builder.mutation({
       query: ({ username, ...body }) => ({
         body,
-        method: "POST",
+        method: "PUT",
         url: `user/courses/${username}/`,
       }),
     }),

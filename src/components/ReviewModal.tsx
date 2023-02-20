@@ -13,43 +13,63 @@ import {
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 
-import { useCreateReviewMutation } from "@features/review/reviewApi";
+import {
+  useUpdateReviewMutation,
+  useCreateReviewMutation,
+} from "@features/review/reviewApi";
 import { useSelector } from "@utils/hooks";
 import { success } from "@utils/notification";
 
 interface RatingModalType {
   show: boolean;
-  onOk: any;
   onCancel: any;
-  courseId: number;
+  course: any;
+  review: any;
+  type: "update" | "create";
 }
 
 const RatingModal = ({
   show,
-  onOk,
   onCancel,
-  courseId,
+  course,
+  type,
+  review,
 }: RatingModalType): JSX.Element => {
   const { Text } = Typography;
   const { t } = useTranslation("common");
   const [errMsg, setErrMsg] = useState<string>("");
-  const { id } = useSelector((state) => state.auth);
 
-  const [createReview, { isLoading }] = useCreateReviewMutation();
+  const { id: userId } = useSelector((state) => state.auth);
+
+  const [updateReview, { isLoading: isUpdateLoading }] =
+    useUpdateReviewMutation();
+  const [createReview, { isLoading: isCreateLoading }] =
+    useCreateReviewMutation();
+
   const router = useRouter();
 
   const handleSubmit = async (values: any) => {
     const { comment, rating } = values;
     try {
-      await createReview({
-        comment,
-        course: courseId,
-        rating,
-        user: id,
-      }).unwrap();
-      success(t`notification.success`, "success give review");
+      if (type === "update") {
+        await updateReview({
+          comment,
+          course: course.id,
+          id: review.id,
+          rating,
+          user: userId,
+        }).unwrap();
+        success(t`notification.success`, "success update review");
+      } else {
+        await createReview({
+          comment,
+          course: course.id,
+          rating,
+          user: userId,
+        }).unwrap();
+        success(t`notification.success`, "success create review");
+      }
       router.reload();
-      onOk();
     } catch (err: any) {
       if (!err?.data) {
         setErrMsg("No server response");
@@ -67,11 +87,15 @@ const RatingModal = ({
     <Modal
       footer={null}
       open={show}
-      title="Review"
+      title={`Review ${course.code}`}
       onCancel={onCancel}
-      onOk={onOk}
     >
-      <Form autoComplete="off" name="review" onFinish={handleSubmit}>
+      <Form
+        autoComplete="off"
+        initialValues={review}
+        name="review"
+        onFinish={handleSubmit}
+      >
         {errMsg && <Text>{errMsg}</Text>}
         <Form.Item
           name="rating"
@@ -88,7 +112,7 @@ const RatingModal = ({
             <Button htmlType="submit" type="primary">
               Submit
             </Button>
-            {isLoading && <Spin />}
+            {(isCreateLoading || isUpdateLoading) && <Spin />}
           </Space>
         </Form.Item>
       </Form>

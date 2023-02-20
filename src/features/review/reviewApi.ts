@@ -20,11 +20,19 @@ export const reviewApi = apiSlice.injectEndpoints({
         url: `/reviews/?limit=${limit}&offset=${offset}`,
       }),
     }),
+    updateReview: builder.mutation({
+      query: ({ id, ...body }) => ({
+        body,
+        method: "PUT",
+        url: `/review/update/${id}/`,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetReviewQuery,
   useGetReviewsQuery,
+  useUpdateReviewMutation,
   useCreateReviewMutation,
 } = reviewApi;
