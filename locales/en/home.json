@@ -1,4 +1,21 @@
 {
-  "heading": "Helping you find your preferred courses",
-  "subheading": "Offering suitable courses based on your preferences with the help of recommendation system."
+  "heading": [
+    {
+      "type": "text",
+      "text": "The"
+    },
+    {
+      "type": "highlight",
+      "text": "Smart"
+    },
+    {
+      "type": "text",
+      "text": "Way to Choose University Courses"
+    }
+  ],
+
+  "subheading": "Offering suitable courses based on your preferences with the help of recommendation system.",
+
+  "docs": "Documentation",
+  "getStarted": "Get Started"
 }
