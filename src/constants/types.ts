@@ -65,6 +65,9 @@ export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export interface HeaderType {
   menuItems: MenuProps["items"];
-  setShowLogin: SetStateType<boolean>;
-  setShowRegister: SetStateType<boolean>;
+}
+
+export interface TextsType {
+  type: "text" | "highlight";
+  text: string;
 }
