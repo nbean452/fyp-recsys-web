@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   BookOutlined,
   HomeOutlined,
@@ -16,9 +14,6 @@ import { StyledHeader, StyledLink } from "@components/StyledComponents";
 
 const Header = (): JSX.Element => {
   const { t } = useTranslation("common");
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
 
   const menuItems: MenuProps["items"] = [
     {
@@ -41,26 +36,10 @@ const Header = (): JSX.Element => {
   return (
     <StyledHeader>
       <Row gutter={[16, 16]} justify="space-between">
-        <DesktopHeader
-          menuItems={menuItems}
-          setShowLogin={setShowLogin}
-          setShowRegister={setShowRegister}
-        />
-        <MobileHeader
-          menuItems={menuItems}
-          setShowLogin={setShowLogin}
-          setShowRegister={setShowRegister}
-        />
-        <LoginModal
-          show={showLogin}
-          onCancel={() => setShowLogin(false)}
-          onOk={() => setShowLogin(false)}
-        />
-        <RegisterModal
-          show={showRegister}
-          onCancel={() => setShowRegister(false)}
-          onOk={() => setShowRegister(false)}
-        />
+        <DesktopHeader menuItems={menuItems} />
+        <MobileHeader menuItems={menuItems} />
+        <LoginModal />
+        <RegisterModal />
       </Row>
     </StyledHeader>
   );

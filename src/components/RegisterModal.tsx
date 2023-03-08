@@ -5,24 +5,22 @@ import snakecaseKeys from "snakecase-keys";
 
 import { useRegisterMutation } from "@features/auth/authApi";
 import { setAuth } from "@features/auth/authSlice";
-import { useDispatch } from "@utils/hooks";
+import { setRegisterModalVisibility } from "@features/misc/modalVisibilitySlice";
+import { useDispatch, useSelector } from "@utils/hooks";
 
-interface RegisterModalType {
-  show: boolean;
-  onOk: any;
-  onCancel: any;
-}
-
-const RegisterModal = ({
-  show,
-  onOk,
-  onCancel,
-}: RegisterModalType): JSX.Element => {
+// This component is placed in <Header/>
+const RegisterModal = (): JSX.Element => {
   const { Text } = Typography;
 
   const [errMsg, setErrMsg] = useState<string>("");
 
+  const { registerVisible: isOpen } = useSelector(
+    (state) => state.modalVisibility,
+  );
+
   const dispatch = useDispatch();
+
+  const handleClose = () => dispatch(setRegisterModalVisibility(false));
 
   const [register] = useRegisterMutation();
 
@@ -32,7 +30,7 @@ const RegisterModal = ({
     try {
       const res = await register(requestObject).unwrap();
       dispatch(setAuth(res));
-      onOk();
+      handleClose();
     } catch (err: any) {
       if (!err?.data) {
         setErrMsg("No server response");
@@ -49,10 +47,10 @@ const RegisterModal = ({
   return (
     <Modal
       footer={null}
-      open={show}
+      open={isOpen}
       title="Register"
-      onCancel={onCancel}
-      onOk={onOk}
+      onCancel={handleClose}
+      onOk={handleClose}
     >
       <Form autoComplete="off" name="register" onFinish={handleSubmit}>
         {errMsg && <Text>{errMsg}</Text>}

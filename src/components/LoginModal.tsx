@@ -6,21 +6,25 @@ import useTranslation from "next-translate/useTranslation";
 
 import { useLoginMutation } from "@features/auth/authApi";
 import { setAuth } from "@features/auth/authSlice";
-import { useDispatch } from "@utils/hooks";
+import { setLoginModalVisibility } from "@features/misc/modalVisibilitySlice";
+import { useDispatch, useSelector } from "@utils/hooks";
 import { success } from "@utils/notification";
 
-interface LoginModalType {
-  show: boolean;
-  onOk: any;
-  onCancel: any;
-}
-
-const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
+// This component is placed in <Header/>
+const LoginModal = (): JSX.Element => {
   const { Text } = Typography;
   const { t } = useTranslation("common");
   const [errMsg, setErrMsg] = useState<string>("");
 
+  const { loginVisible: isOpen } = useSelector(
+    (state) => state.modalVisibility,
+  );
+
   const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(setLoginModalVisibility(false));
+  };
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -30,7 +34,7 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
       const res = await login({ password, username }).unwrap();
       dispatch(setAuth(res));
       success(t`notification.success`, t`notification.message.loggedIn`);
-      onOk();
+      handleClose();
     } catch (err: any) {
       if (!err?.data) {
         setErrMsg("No server response");
@@ -47,10 +51,10 @@ const LoginModal = ({ show, onOk, onCancel }: LoginModalType): JSX.Element => {
   return (
     <Modal
       footer={null}
-      open={show}
+      open={isOpen}
       title="Login"
-      onCancel={onCancel}
-      onOk={onOk}
+      onCancel={handleClose}
+      onOk={handleClose}
     >
       <Form autoComplete="off" name="login" onFinish={handleSubmit}>
         {errMsg && <Text>{errMsg}</Text>}

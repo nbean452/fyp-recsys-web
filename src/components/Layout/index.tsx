@@ -1,11 +1,7 @@
 import Head from "next/head";
 
 import Footer from "@components/Layout/Footer";
-import {
-  StyledContent,
-  StyledLayout,
-  StyledSpace,
-} from "@components/StyledComponents";
+import { StyledContent, StyledLayout } from "@components/StyledComponents";
 
 import Header from "./Header";
 
@@ -25,9 +21,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       </Head>
       <StyledLayout>
         <Header />
-        <StyledContent>
-          <StyledSpace direction="vertical">{children}</StyledSpace>
-        </StyledContent>
+        <StyledContent>{children}</StyledContent>
         <Footer />
       </StyledLayout>
     </>

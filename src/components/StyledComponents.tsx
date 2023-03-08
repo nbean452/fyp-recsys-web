@@ -1,13 +1,42 @@
-import { Layout, Menu, Space } from "antd";
+import { Layout, Menu, Space, Typography } from "antd";
 import NextLink from "next/link";
 import styled from "styled-components";
 
 import color from "@constants/color";
 
-type StyledLinkProps = {
+const { Text, Title } = Typography;
+interface StyledComponentProps {
+  align?: "start" | "center";
+  fontSize?: string;
+}
+interface StyledLinkProps {
   primary?: boolean;
   className?: string;
-};
+}
+
+interface StyledContainerProps {
+  flexDirection?: "row" | "column";
+}
+
+export const StyledTitle = styled(Title)<StyledComponentProps>`
+  text-align: ${({ align }) => align ?? "start"};
+  ${({ fontSize }) =>
+    fontSize &&
+    `
+        font-size: ${fontSize} !important;
+      `}
+`;
+
+export const StyledText = styled(Text)<StyledComponentProps>`
+  justify-content: ${({ align }) => align ?? "start"};
+  ${({ fontSize }) =>
+    fontSize &&
+    `
+        font-size: ${fontSize} !important;
+      `}
+  width: 100%;
+  display: flex;
+`;
 
 // no styles yet!
 export const StyledLink = styled(NextLink)<StyledLinkProps>`
@@ -34,6 +63,10 @@ export const StyledHeader = styled(Layout.Header)`
 export const StyledContent = styled(Layout.Content)`
   padding: 48px;
 
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
   @media screen and (max-width: 600px) {
     padding: 16px;
   }
@@ -57,4 +90,12 @@ export const StyledMenu = styled(Menu)`
 
 export const StyledSpace = styled(Space)`
   width: 100%;
+`;
+
+export const StyledContainer = styled.div<StyledContainerProps>`
+  display: flex;
+  flex-direction: ${({ flexDirection }) => flexDirection ?? "row"};
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 `;

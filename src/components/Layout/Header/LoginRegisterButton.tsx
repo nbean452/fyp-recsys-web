@@ -47,7 +47,7 @@ const LoginRegisterButton = ({
 
   const items: MenuProps["items"] = [
     { key: "profile", label: "Profile" },
-    { key: "courses", label: "Courses" },
+    // { key: "courses", label: "Courses" },
     { type: "divider" },
     { key: "logout", label: t`nav.logout` },
   ];
