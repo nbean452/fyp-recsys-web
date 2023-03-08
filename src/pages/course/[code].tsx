@@ -19,6 +19,7 @@ import {
   useGetCourseQuery,
   useGetCourseRecommendationsQuery,
 } from "@features/course/courseApi";
+import { setLoginModalVisibility } from "@features/misc/modalVisibilitySlice";
 import { useUpdateTakenCourseMutation } from "@features/profile/profileApi";
 import { useSelector } from "@utils/hooks";
 import { success } from "@utils/notification";
@@ -91,6 +92,8 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
     { href: `/course/${code}`, text: code },
   ];
 
+  const handleLogin = () => dispatch(setLoginModalVisibility(true));
+
   return (
     <Layout>
       <Breadcrumb items={breadcrumbItems} />
@@ -98,7 +101,10 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
       <RTKComponent isError={isError} isFetching={isFetching}>
         <Title level={1}>{course?.name}</Title>
 
-        <Button disabled={isTaken} onClick={handleSubmit}>
+        <Button
+          disabled={isTaken}
+          onClick={username ? handleSubmit : handleLogin}
+        >
           {isTaken ? "Already taken" : "Take course"}
         </Button>
 
