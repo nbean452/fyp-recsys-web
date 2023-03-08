@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { Button, Card, Rate, Space, Typography } from "antd";
+import { Button, Card, Col, Rate, Row, Space, Typography } from "antd";
 import { find } from "lodash";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 
-import CourseAvailability from "@components/CourseAvailability";
+// import CourseAvailability from "@components/CourseAvailability";
 import Layout from "@components/Layout";
 import ReviewModal from "@components/ReviewModal";
 import RTKComponent from "@components/RTKComponent";
@@ -70,37 +70,48 @@ const ProfilePage = () => {
         <Text>{userReview.comment}</Text>
       </>
     ) : (
-      <Text>No Review </Text>
+      <Text>No reviews yet!</Text>
     );
   };
 
   return (
     <Layout>
       <Title>Profile</Title>
+      <Title level={2}>Courses Taken By You</Title>
       <RTKComponent isError={isError} isFetching={isFetching}>
-        {!isEmpty(data?.takenCourse) ? (
-          data?.takenCourse.map((course: CourseWithReview) => (
-            <Card key={course.name}>
-              <Space direction="vertical">
-                <Title level={3}>
-                  <StyledLink href={`/course/${course.code}`}>
-                    {course.name}
-                  </StyledLink>
-                </Title>
+        <Row align="stretch" gutter={[16, 16]}>
+          {!isEmpty(data?.takenCourse) ? (
+            data?.takenCourse.map((course: CourseWithReview) => (
+              <Col key={course.name} lg={8} md={12} sm={24} xl={6} xs={24}>
+                <Card
+                  style={{
+                    alignSelf: "stretch",
+                    height: "100%",
+                    justifySelf: "stretch",
+                  }}
+                >
+                  <Space direction="vertical">
+                    <Title level={3}>
+                      <StyledLink href={`/course/${course.code}`}>
+                        {course.name}
+                      </StyledLink>
+                    </Title>
 
-                {renderButton(course)}
+                    {renderButton(course)}
 
-                {renderUserReview(course)}
+                    {renderUserReview(course)}
 
-                <CourseAvailability
+                    {/* <CourseAvailability
                   unparsedAvailability={course.availability}
-                />
-              </Space>
-            </Card>
-          ))
-        ) : (
-          <Paragraph>No courses registered!</Paragraph>
-        )}
+                /> */}
+                  </Space>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <Paragraph>No courses registered!</Paragraph>
+          )}
+        </Row>
       </RTKComponent>
       <ReviewModal
         course={course}
