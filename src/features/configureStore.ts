@@ -15,7 +15,7 @@ import apiSlice from "@features/apiSlice";
 import rootReducer from "@features/reducers";
 
 const persistConfig = {
-  blacklist: [apiSlice.reducerPath],
+  blacklist: [apiSlice.reducerPath, "modalVisibility"],
   key: "root",
   storage,
 };
