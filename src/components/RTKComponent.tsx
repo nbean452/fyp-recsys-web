@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import { Spin, Typography } from "antd";
 
 import { StyledSpace } from "@components/StyledComponents";
@@ -5,7 +7,7 @@ import { StyledSpace } from "@components/StyledComponents";
 interface RTKComponentType {
   isError: boolean;
   isFetching: boolean;
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
 }
 
 const RTKComponent = ({
