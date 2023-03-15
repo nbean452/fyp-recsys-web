@@ -6,6 +6,9 @@ RUN mkdir -p /code
 
 RUN adduser -D --uid 10000 runner
 
+# set timezone to hk, for reference (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+ENV TZ=Asia/Hong_Kong
+
 WORKDIR /code
 
 COPY package.json /code
