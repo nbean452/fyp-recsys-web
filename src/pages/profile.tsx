@@ -5,7 +5,6 @@ import { find } from "lodash";
 import isEmpty from "lodash/isEmpty";
 import { useRouter } from "next/router";
 
-// import CourseAvailability from "@components/CourseAvailability";
 import Layout from "@components/Layout";
 import ReviewModal from "@components/ReviewModal";
 import RTKComponent from "@components/RTKComponent";
