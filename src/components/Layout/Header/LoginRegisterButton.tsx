@@ -37,6 +37,7 @@ const LoginRegisterButton = ({
         router.push("/profile/courses/");
         break;
       case "logout":
+        router.push("/");
         dispatch(logOut());
         success("Logout", "Successful logout");
         break;
