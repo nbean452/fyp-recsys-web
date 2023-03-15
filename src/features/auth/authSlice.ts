@@ -4,7 +4,7 @@ const initialState = {
   dateJoined: null,
   email: "",
   firstName: "",
-  id: null,
+  id: 0,
   isActive: null,
   isStaff: null,
   isSuperuser: null,
