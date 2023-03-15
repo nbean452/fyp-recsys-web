@@ -3,14 +3,19 @@ import apiSlice from "@features/apiSlice";
 
 export const courseApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getCBFRecommendations: builder.query({
+      query: (code) => ({
+        url: `/recommend/cbf/${code}/`,
+      }),
+    }),
+    getCFRecommendations: builder.query({
+      query: (id) => ({
+        url: `/recommend/cf/${id}/`,
+      }),
+    }),
     getCourse: builder.query({
       query: (code) => ({
         url: `/course/${code}/`,
-      }),
-    }),
-    getCourseRecommendations: builder.query({
-      query: (code) => ({
-        url: `/recommend/course/${code}/`,
       }),
     }),
     getCourses: builder.query({
@@ -35,7 +40,8 @@ export const courseApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetCourseRecommendationsQuery,
+  useGetCBFRecommendationsQuery,
+  useGetCFRecommendationsQuery,
   useGetCoursesQuery,
   useGetCourseQuery,
 } = courseApi;

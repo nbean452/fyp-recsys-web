@@ -17,7 +17,7 @@ import { CourseWithReview } from "@constants/types";
 import { setAuth } from "@features/auth/authSlice";
 import {
   useGetCourseQuery,
-  useGetCourseRecommendationsQuery,
+  useGetCBFRecommendationsQuery,
 } from "@features/course/courseApi";
 import { setLoginModalVisibility } from "@features/misc/modalVisibilitySlice";
 import { useUpdateTakenCourseMutation } from "@features/profile/profileApi";
@@ -80,7 +80,7 @@ const CourseSlugPage: NextPage<CourseSlugProps> = ({ code }) => {
     }
   };
 
-  const { data: courseRecs } = useGetCourseRecommendationsQuery(code);
+  const { data: courseRecs } = useGetCBFRecommendationsQuery(code);
 
   const getIsTaken = () =>
     !isUndefined(find(getTakenCourseCodes(), (code) => code === course?.code));
