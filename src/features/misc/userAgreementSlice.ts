@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  agreed: false,
+  agreed: true,
 };
 
 export const userAgreementSlice = createSlice({
