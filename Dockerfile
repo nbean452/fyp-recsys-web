@@ -1,6 +1,6 @@
 # Builder stage
 ARG NODE_VERSION=16
-FROM node:${NODE_VERSION}-alpine as builder
+FROM --platform=linux/amd64 node:${NODE_VERSION}-alpine as builder
 
 WORKDIR /code
 
@@ -20,7 +20,7 @@ COPY . /code/
 RUN yarn build
 
 # Final stage
-FROM node:${NODE_VERSION}-alpine
+FROM --platform=linux/amd64 node:${NODE_VERSION}-alpine
 
 # Create a user and set file permissions
 RUN mkdir -p /code && \
