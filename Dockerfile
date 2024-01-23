@@ -1,6 +1,6 @@
 # Builder stage
 ARG NODE_VERSION=16
-FROM --platform=linux/amd64 node:${NODE_VERSION}-alpine as builder
+FROM node:${NODE_VERSION}-alpine as builder
 
 WORKDIR /code
 
@@ -20,7 +20,7 @@ COPY . /code/
 RUN yarn build
 
 # Final stage
-FROM --platform=linux/amd64 node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION}-alpine
 
 # Create a user and set file permissions
 RUN mkdir -p /code && \
@@ -38,6 +38,9 @@ ENV TZ=Asia/Hong_Kong
 COPY --from=builder /code/node_modules /code/node_modules
 COPY --from=builder /code/package.json /code/package.json
 COPY --from=builder /code/.next /code/.next
+
+# Ensure to copy the public directory if it is required at runtime
+COPY --from=builder /code/public /code/public
 
 # Copy other necessary files here if needed
 # COPY --from=builder /code/other-files /code/other-files
